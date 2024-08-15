@@ -13,7 +13,9 @@ return {
                     require("which-key").show({ global = false })
                 end,
                 desc = "Buffer Local Keymaps"
-            }
+            },
+            { "<leader>j", hidden = true },
+            { "<leader>k", hidden = true }
         }
     }
 }
