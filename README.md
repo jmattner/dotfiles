@@ -4,6 +4,8 @@
 - install scoop
 - install with scoop
     - 7zip
-    - neovim
+    - fd
     - gcc
+    - luarocks
+    - neovim
     - ripgrep

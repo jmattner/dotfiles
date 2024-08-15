@@ -1,1 +1,1 @@
-require("difk")
+require("config")

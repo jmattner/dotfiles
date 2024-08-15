@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -28,4 +30,8 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.g.mapleader = " "
+vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
+
+-- if vim.fn.has("win32") == 1 then
+--     LazyVim.terminal.setup("pwsh")
+-- end
