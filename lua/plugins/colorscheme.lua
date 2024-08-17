@@ -4,8 +4,15 @@ return {
         lazy = false,
         priority = 1000,
         init = function()
-            -- load as default
             vim.cmd([[colorscheme tokyonight-night]])
         end
-    }
+    },
+    {
+        "tiagovla/tokyodark.nvim",
+        priority = 1000,
+        -- config = function()
+        --     vim.cmd([[colorscheme tokyodark]])
+        -- end,
+    },
+
 }
