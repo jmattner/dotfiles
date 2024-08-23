@@ -19,7 +19,7 @@ return {
                     vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", { buffer = event.buf })
                     vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { buffer = event.buf })
                     vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { buffer = event.buf })
-                    vim.keymap.set("n", "<F4>", "<cmd>lua require('tiny-code-action').code_action()<cr>", { buffer = event.buf }) -- Code actions with telescope UI and preview
+                    vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf })
                     vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", { buffer = event.buf })
                 end,
             })
@@ -64,6 +64,19 @@ return {
             })
         end,
     },
+    -- {
+    --     "aznhe21/actions-preview.nvim",
+    --     dependencies = {
+    --         { "nvim-telescope/telescope.nvim" },
+    --     },
+    --     keys = function()
+    --         local actionsPreview = require("actions-preview")
+    --         return {
+    --             { "<leader>.", actionsPreview.code_actions, mode = { "v", "n" }, desc = "THIS ONE" }
+    --         }
+    --     end,
+    --     opts = {},
+    -- },
     -- {
     --     "jay-babu/mason-nvim-dap.nvim",
     --     opts = {
