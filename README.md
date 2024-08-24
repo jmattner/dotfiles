@@ -14,8 +14,9 @@
 
 ## TODO
 
-- get DAP working
+- fix `Undefined global 'vim'`
 - session persistence on close
-- dashboard plugin
+- sessions on dashboard
+- get DAP working
 - tiny-code-action (code action telescope support)
 - git commit viewing
