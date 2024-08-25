@@ -1,5 +1,17 @@
 return {
     {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta",        lazy = true }, -- optional `vim.uv` typings
+    {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = { "garymjr/nvim-snippets" },
@@ -120,10 +132,10 @@ return {
     },
     { "rafamadriz/friendly-snippets" },
     { "onsails/lspkind.nvim" },
-    { "hrsh7th/cmp-nvim-lsp", event = { "InsertEnter", "CmdlineEnter" } },
-    { "hrsh7th/cmp-buffer", event = { "InsertEnter", "CmdlineEnter" } },
-    { "hrsh7th/cmp-cmdline", event = { "InsertEnter", "CmdlineEnter" } },
-    { "hrsh7th/cmp-nvim-lua", event = { "InsertEnter", "CmdlineEnter" } },
-    { "FelipeLema/cmp-async-path", event = { "InsertEnter", "CmdlineEnter" } },
+    { "hrsh7th/cmp-nvim-lsp",        event = { "InsertEnter", "CmdlineEnter" } },
+    { "hrsh7th/cmp-buffer",          event = { "InsertEnter", "CmdlineEnter" } },
+    { "hrsh7th/cmp-cmdline",         event = { "InsertEnter", "CmdlineEnter" } },
+    { "hrsh7th/cmp-nvim-lua",        event = { "InsertEnter", "CmdlineEnter" } },
+    { "FelipeLema/cmp-async-path",   event = { "InsertEnter", "CmdlineEnter" } },
     { "dmitmel/cmp-cmdline-history", keys = ":" },
 }

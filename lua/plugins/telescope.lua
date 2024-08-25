@@ -7,7 +7,7 @@ return {
     keys = function()
         local builtin = require("telescope.builtin")
         return {
-            { "<leader>pp", builtin.builtin, desc = "Pickers" },
+            { "<leader>pp", builtin.builtin,    desc = "Pickers" },
             { "<leader>pf", builtin.find_files, desc = "Files" },
             {
                 "<leader>pws",
@@ -32,15 +32,16 @@ return {
                 end,
                 desc = "Text"
             },
-            { "<leader>pt", builtin.colorscheme, desc = "Themes" },
-            { "<leader>pg", builtin.git_commits, desc = "Commits" },
-            { "<leader>ph", builtin.help_tags, desc = "Help" },
+            { "<leader>pt", builtin.colorscheme,          desc = "Themes" },
+            { "<leader>pg", builtin.git_commits,          desc = "Commits" },
+            { "<leader>ph", builtin.help_tags,            desc = "Help" },
 
             -- lsp things
-            { "<leader>pd", builtin.lsp_definitions, desc = "Definition" },
+            { "<leader>pd", builtin.lsp_definitions,      desc = "Definition" },
             { "<leader>pD", builtin.lsp_type_definitions, desc = "Type Definition" },
-            { "<leader>pr", builtin.lsp_references, desc = "Reference" },
-            { "<leader>pi", builtin.lsp_implementations, desc = "Implementation" },
+            { "<leader>pr", builtin.lsp_references,       desc = "Reference" },
+            { "<leader>pi", builtin.lsp_implementations,  desc = "Implementation" },
+            { "<leader>pz", print("asdf"), desc = "Test" },
         }
     end,
     opts = {
@@ -58,6 +59,12 @@ return {
                 fname_width = 0.5,
                 -- show_line = false,
             },
-        }
-    }
+            diagnostics = {
+                path_display = function(opts, path)
+                    local tail = require("telescope.utils").path_tail(path)
+                    return string.format("%s (%s)", tail, path)
+                end,
+            },
+        },
+    },
 }

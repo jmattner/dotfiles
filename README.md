@@ -14,7 +14,10 @@
 
 ## TODO
 
-- fix `Undefined global 'vim'`
+- add info footer
+- footer display lsps etc.
+- add git bindings shortcuts for workflow
+- workspaces / projects on dashboard
 - session persistence on close
 - sessions on dashboard
 - get DAP working
