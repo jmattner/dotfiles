@@ -1,3 +1,6 @@
 require("config.set")
 require("config.remap")
 require("config.lazy")
+require("config.highlight")
+require("config.icons")
+require("config.statusline")
