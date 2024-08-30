@@ -20,8 +20,9 @@ function M.get_or_create_hl(hl)
     if not statusline_hls[hl] then
         -- If not in the cache, create the highlight group using the icon's foreground color
         -- and the statusline's background color.
-        local bg_hl = vim.api.nvim_get_hl(0, { name = 'StatusLine' })
-        local fg_hl = vim.api.nvim_get_hl(0, { name = hl })
+        local bg_hl = vim.api.nvim_get_hl(0, { name = 'StatusLine', link = false })
+        local fg_hl = vim.api.nvim_get_hl(0, { name = hl, link = false })
+
         vim.api.nvim_set_hl(0, hl_name, { bg = ('#%06x'):format(bg_hl.bg), fg = ('#%06x'):format(fg_hl.fg) })
         statusline_hls[hl] = true
     end
@@ -155,13 +156,19 @@ vim.api.nvim_create_autocmd('LspProgress', {
 --- The latest LSP progress message.
 ---@return string
 function M.lsp_progress_component()
-    if not progress_status.client or not progress_status.title then
+    if not progress_status.client then
         return ''
     end
 
+    local client = string.format('%%#StatuslineTitle#%s  ', progress_status.client)
+
+    if not progress_status.title then
+        return client
+    end
+
     return table.concat {
+        client,
         '%#StatuslineSpinner#󱥸 ',
-        string.format('%%#StatuslineTitle#%s  ', progress_status.client),
         string.format('%%#StatuslineItalic#%s...', progress_status.title),
     }
 end

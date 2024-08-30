@@ -35,3 +35,14 @@ vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
 -- if vim.fn.has("win32") == 1 then
 --     LazyVim.terminal.setup("pwsh")
 -- end
+
+vim.opt.list = true
+vim.opt.listchars = { space = '⋅', trail = '⋅', tab = '  ' }
+
+-- Case insensitive searching UNLESS /C or the search has capitals
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
