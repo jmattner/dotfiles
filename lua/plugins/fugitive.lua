@@ -11,5 +11,7 @@ return {
     keys = {
         { "<leader>gs", vim.cmd.Git, desc = "Git Status" },
     },
-    opts = {},
+    config = function()
+        -- loading via opts = {} produces error for some reason
+    end,
 }
