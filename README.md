@@ -16,10 +16,9 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
-- workspaces / projects on dashboard
-- session persistence on close
-- sessions on dashboard
 - get DAP working
+- status bar per split
+- visual mode telescope search for selection
 - nvim-lightbulb
 - tiny-code-action (code action telescope support)
 - make git bindings more context aware + add more
