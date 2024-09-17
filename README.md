@@ -16,6 +16,7 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
+- update markdownlint with siblingsonly = true to fix MD024 errors
 - workspaces / projects on dashboard
 - session persistence on close
 - sessions on dashboard

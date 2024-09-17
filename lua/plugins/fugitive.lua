@@ -9,7 +9,16 @@ vim.api.nvim_create_autocmd({ "User" }, {
 return {
     "tpope/vim-fugitive",
     keys = {
-        { "<leader>gs", vim.cmd.Git, desc = "Git Status" },
+        { "<leader>gs", vim.cmd.Git,                        desc = "git status" },
+        { "<leader>gl", "<cmd>Git log --oneline<cr><C-w>H", desc = "git log" },
+        {
+            "<leader>gh",
+            function()
+                local path = vim.fn.expand("%")
+                vim.cmd("Git log --oneline " .. path)
+            end,
+            desc = "git history",
+        },
     },
     config = function()
         -- loading via opts = {} produces error for some reason

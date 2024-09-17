@@ -6,16 +6,25 @@ return {
         event = "VeryLazy",
         opts = {
         },
-        keys = {
-            {
-                "<leader>?",
-                function()
-                    require("which-key").show({ global = false })
-                end,
-                desc = "Buffer Local Keymaps"
-            },
-            { "<leader>j", hidden = true },
-            { "<leader>k", hidden = true }
-        }
+        keys = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>j", hidden = true },
+                { "<leader>k", hidden = true },
+                { "<leader>g", group = "git" },
+                { "<leader>p", group = "pickers" },
+                { "<leader>d", group = "debug" },
+                { "<leader>z", group = "sessions" },
+            })
+            return {
+                {
+                    "<leader>?",
+                    function()
+                        require("which-key").show({ global = false })
+                    end,
+                    desc = "Buffer Local Keymaps"
+                },
+            }
+        end
     }
 }

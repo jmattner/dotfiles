@@ -33,15 +33,18 @@ return {
                     end,
                     desc = "Text"
                 },
-                { "<leader>pt", builtin.colorscheme,          desc = "Themes" },
-                { "<leader>pg", builtin.git_commits,          desc = "Commits" },
-                { "<leader>ph", builtin.help_tags,            desc = "Help" },
+                { "<leader>pt", builtin.colorscheme,          desc = "themes" },
+                { "<leader>pg", builtin.git_bcommits,          desc = "git history" },
+                { "<leader>ph", builtin.help_tags,            desc = "help" },
 
                 -- lsp things
-                { "<leader>pd", builtin.lsp_definitions,      desc = "Definition" },
-                { "<leader>pD", builtin.lsp_type_definitions, desc = "Type Definition" },
-                { "<leader>pr", builtin.lsp_references,       desc = "Reference" },
-                { "<leader>pi", builtin.lsp_implementations,  desc = "Implementation" },
+                { "<leader>pd", builtin.lsp_definitions,      desc = "definition" },
+                { "<leader>pD", builtin.lsp_type_definitions, desc = "type Definition" },
+                { "<leader>pr", builtin.lsp_references,       desc = "reference" },
+                { "<leader>pi", builtin.lsp_implementations,  desc = "implementation" },
+
+                { "<leader>gb", builtin.git_branches,         desc = "Branches" },
+                { "<leader>gt", builtin.git_branches,         desc = "Git Stash" },
             }
         end,
         opts = {
@@ -54,13 +57,13 @@ return {
                         anchor = "S",
                     },
                     path_display = {
-                        shorten = 2
+                        shorten = 2,
                     },
                     fname_width = 0.5,
                     -- show_line = false,
                 },
                 diagnostics = {
-                    path_display = function(opts, path)
+                    path_display = function(_, path)
                         local tail = require("telescope.utils").path_tail(path)
                         return string.format("%s (%s)", tail, path)
                     end,

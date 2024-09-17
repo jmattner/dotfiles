@@ -36,7 +36,6 @@ return {
                 end,
             },
         },
-        -- keys - don't add a keys value as it seems to break running on startup
         opts = function()
             local starter = require("mini.starter")
             return {
@@ -46,6 +45,14 @@ return {
                     starter.sections.builtin_actions(),
                 },
             }
+        end,
+        -- keys - don't add a keys value as it seems to break running on startup
+        config = function(_, opts)
+            local starter = require("mini.starter")
+
+            vim.keymap.set("n", "<leader>q", starter.open, { desc = "Dashboard" })
+
+            starter.setup(opts)
         end,
     },
 }
