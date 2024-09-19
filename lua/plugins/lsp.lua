@@ -38,19 +38,15 @@ return {
     {
         "williamboman/mason.nvim",
         opts = {
+            -- install_root_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/mason"),
+            PATH = "prepend",
             ui = { border = "rounded" }
         },
     },
     {
         "williamboman/mason-lspconfig.nvim",
         opts = function(_, opts)
-            local default_setup = function(server)
-                require("lspconfig")[server].setup({
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                })
-            end
-
-            opts.handlers = { default_setup }
+            -- local mason_path = vim.fn.stdpath("data") .. "/mason/bin/"
 
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, {

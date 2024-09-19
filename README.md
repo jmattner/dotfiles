@@ -12,15 +12,14 @@ documenting things here because i'm stupid and i forget
   - gcc
   - luarocks
   - neovim
+  - pwsh
   - ripgrep
 
 ## TODO
 
-- update markdownlint with siblingsonly = true to fix MD024 errors
-- workspaces / projects on dashboard
-- session persistence on close
-- sessions on dashboard
 - get DAP working
+- Decodetalkers/csharpls-extended-lsp.nvim
+- update markdownlint with siblingsonly = true to fix MD024 errors
 - status bar per split
 - visual mode telescope search for selection
 - nvim-lightbulb
