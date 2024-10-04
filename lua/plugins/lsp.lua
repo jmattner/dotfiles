@@ -19,7 +19,8 @@ return {
                     vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", { buffer = event.buf, desc = "Type definition" })
                     vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { buffer = event.buf, desc = "References" })
                     vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { buffer = event.buf, desc = "Signature help" })
-                    vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
+                    -- set in actions-preview
+                    -- vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
                     vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", { buffer = event.buf, desc = "Rename" })
                 end,
             })
@@ -33,6 +34,15 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
+
+            require("mason-lspconfig").setup_handlers {
+                function (server_name)
+                    require("lspconfig")[server_name].setup {}
+                end,
+                -- ["rust_analyzer"] = function ()
+                --     require("rust-tools").setup {}
+                -- end
+            }
         end,
     },
     {
@@ -52,11 +62,13 @@ return {
             vim.list_extend(opts.ensure_installed, {
                 "biome",
                 "cssls",
+                "csharp_ls",
                 "docker_compose_language_service",
                 "dockerls",
                 "html",
                 "lua_ls",
                 "marksman",
+                "sqlls",
             })
         end,
     },
