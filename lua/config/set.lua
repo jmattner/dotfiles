@@ -39,6 +39,8 @@ vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
 vim.opt.list = true
 vim.opt.listchars = { space = '⋅', trail = '⋅', tab = '  ' }
 
+vim.opt.laststatus = 3
+
 -- Case insensitive searching UNLESS /C or the search has capitals
 vim.o.ignorecase = true
 vim.o.smartcase = true

@@ -18,7 +18,8 @@ return {
                     vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", { buffer = event.buf, desc = "Type definition" })
                     vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { buffer = event.buf, desc = "References" })
                     vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { buffer = event.buf, desc = "Signature help" })
-                    vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
+                    -- set in actions-preview
+                    -- vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
                     vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", { buffer = event.buf, desc = "Rename" })
                 end,
             })
@@ -49,15 +50,16 @@ return {
             vim.list_extend(opts.ensure_installed, {
                 "biome",
                 "cssls",
+                "csharp_ls",
+                -- TODO - keep an eye on omnisharp fixes
+                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
+                -- https://github.com/neovim/neovim/pull/29196
                 "docker_compose_language_service",
                 "dockerls",
                 "html",
                 "lua_ls",
                 "marksman",
-                "csharp_ls",
-                -- TODO - keep an eye on omnisharp fixes
-                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
-                -- https://github.com/neovim/neovim/pull/29196
+                "sqlls",
             })
 
             opts.handlers = {
