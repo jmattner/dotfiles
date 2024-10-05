@@ -5,7 +5,6 @@ return {
             { "nvim-treesitter/nvim-treesitter" },
             { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
-            -- { "jay-babu/mason-nvim-dap.nvim" },
             { "rshkarin/mason-nvim-lint" },
         },
         config = function()
@@ -38,7 +37,6 @@ return {
     {
         "williamboman/mason.nvim",
         opts = {
-            -- install_root_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/mason"),
             PATH = "prepend",
             ui = { border = "rounded" }
         },
@@ -46,7 +44,6 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         opts = function(_, opts)
-            -- local mason_path = vim.fn.stdpath("data") .. "/mason/bin/"
 
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, {
@@ -57,7 +54,21 @@ return {
                 "html",
                 "lua_ls",
                 "marksman",
+                "csharp_ls",
+                -- TODO - keep an eye on omnisharp fixes
+                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
+                -- https://github.com/neovim/neovim/pull/29196
             })
+
+            opts.handlers = {
+                function(server)
+                    require("lspconfig")[server].setup({
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    })
+                end,
+            }
+
+            return opts
         end,
     },
     -- {
@@ -72,14 +83,5 @@ return {
     --         }
     --     end,
     --     opts = {},
-    -- },
-    -- {
-    --     "jay-babu/mason-nvim-dap.nvim",
-    --     opts = {
-    --         ensure_installed = {
-    --             "debugpy",
-    --             "cpptools"
-    --         }
-    --     },
     -- },
 }

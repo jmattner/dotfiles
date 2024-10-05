@@ -37,33 +37,67 @@ return {
         "mfussenegger/nvim-dap",
         opts = {},
         config = function()
-            local dap = require('dap')
+            -- local dap = require('dap')
 
-            dap.adapters.coreclr = {
-                type = 'executable',
-                command = 'netcoredbg',
-                args = { '--interpreter=vscode' }
-            }
+            -- dap.adapters.coreclr = {
+            --     type = 'executable',
+            --     command = 'netcoredbg',
+            --     args = { '--interpreter=vscode' }
+            -- }
 
-            local config = {
-                {
-                    type = "coreclr",
-                    name = "launch - netcoredbg",
-                    request = "launch",
-                    console = "integratedTerminal",
-                    program = function()
-                        if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-                            vim.g.dotnet_build_project()
+            -- local config = {
+            --     {
+            --         type = "coreclr",
+            --         name = "launch - netcoredbg",
+            --         request = "launch",
+            --         console = "integratedTerminal",
+            --         program = function()
+            --             if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
+            --                 vim.g.dotnet_build_project()
+            --             end
+            --             return vim.g.dotnet_get_dll_path()
+            --         end,
+            --     },
+            -- }
+            --
+            -- dap.configurations.cs = config
+            -- dap.configurations.fsharp = config
+
+            require("mason-nvim-dap").setup({
+                automatic_installation = true,
+                ensure_installed = {
+                    "netcoredbg",
+                },
+                handlers = {
+                    function(config)
+                        require("mason-nvim-dap").default_setup(config)
+                    end,
+                    coreclr = function(config)
+                        config.adapters = function(on_config, config)
+                            on_config({
+                                type = "executable",
+                                command = vim.fn.exepath("netcoredbg"),
+                                args = { "--interpreter=vscode", "dotnet", config.program}
+                            })
                         end
-                        return vim.g.dotnet_get_dll_path()
+                        -- load configurations from launch.json
+                        -- config.configurations = {
+                        --     {
+                        --         type = "coreclr",
+                        --         request = "launch",
+                        --         name = "=== TESTING",
+                        --         program = function()
+                        --             return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+                        --         end,
+                        --     },
+                        -- }
+
+                            require("mason-nvim-dap").default_setup(config)
                     end,
                 },
-            }
+            })
 
-            dap.configurations.cs = config
-            dap.configurations.fsharp = config
-
-            require("mason-nvim-dap").setup()
+            require("dap.ext.vscode").load_launchjs(nil, { coreclr = { "cs" } })
         end,
     },
     {
@@ -73,19 +107,6 @@ return {
             "williamboman/mason.nvim",
         },
         cmd = { "DapInstall", "DapUninstall" },
-        opts = {
-            automatic_installation = true,
-
-            -- You can provide additional configuration to the handlers,
-            -- see mason-nvim-dap README for more information
-            handlers = {},
-
-            -- You'll need to check that you have the required things installed
-            -- online, please don't ask me how to install them :)
-            ensure_installed = {
-                "netcoredbg",
-            },
-        },
         -- mason-nvim-dap is loaded when nvim-dap loads
         config = function() end,
     },
@@ -94,8 +115,8 @@ return {
         dependencies = { "nvim-neotest/nvim-nio" },
         -- stylua: ignore
         keys = {
-            { "<leader>du", function() require("dapui").toggle({}) end,  desc = "Dap UI" },
-            { "<leader>de", function() require("dapui").eval() end,      desc = "Eval",  mode = { "n", "v" } },
+            { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
+            { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
         },
         opts = {},
         config = function(_, opts)
