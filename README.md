@@ -19,11 +19,8 @@ documenting things here because i'm stupid and i forget
 
 - get DAP working
 - Decodetalkers/csharpls-extended-lsp.nvim
+- theHamsta/nvim-dap-virtual-text
 - update markdownlint with siblingsonly = true to fix MD024 errors
-- status bar per split
 - visual mode telescope search for selection
-- nvim-lightbulb
-- tiny-code-action (code action telescope support)
-- make git bindings more context aware + add more
 - git commit viewing
 - align status bar colors with colorscheme
