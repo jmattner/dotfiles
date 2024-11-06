@@ -72,8 +72,9 @@ return {
 
             vim.diagnostic.config({
                 virtual_text = { prefix = ' ● ' },
-                underline = false,
+                underline = true,
                 update_in_insert = true,
+                severity_sort = true,
             })
         end,
     },

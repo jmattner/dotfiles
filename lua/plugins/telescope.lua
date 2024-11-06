@@ -7,9 +7,20 @@ return {
         },
         keys = function()
             local builtin = require("telescope.builtin")
+
             return {
-                { "<leader>pp", builtin.builtin,    desc = "Pickers" },
-                { "<leader>pf", builtin.find_files, desc = "Files" },
+                { "<leader>pp", builtin.builtin,    desc = "pickers" },
+                { "<leader>pf", builtin.find_files, desc = "files" },
+                {
+                    "<leader>px",
+                    function()
+                        builtin.find_files({
+                            no_ignore = true,
+                            search_file = "*.g.cs",
+                        })
+                    end,
+                    desc = "generated"
+                },
                 {
                     "<leader>pws",
                     function()
@@ -34,7 +45,7 @@ return {
                     desc = "Text"
                 },
                 { "<leader>pt", builtin.colorscheme,          desc = "themes" },
-                { "<leader>pg", builtin.git_bcommits,          desc = "git history" },
+                { "<leader>pg", builtin.git_bcommits,         desc = "git history" },
                 { "<leader>ph", builtin.help_tags,            desc = "help" },
 
                 -- lsp things
