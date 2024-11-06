@@ -129,7 +129,7 @@ local progress_status = {
 vim.api.nvim_create_autocmd('LspProgress', {
     group = vim.api.nvim_create_augroup('jmattner/statusline', { clear = true }),
     desc = 'Update LSP progress in statusline',
-    pattern = { 'begin', 'end' },
+    pattern = { 'begin', 'end', 'report' },
     callback = function(args)
         -- This should in theory never happen, but I've seen weird errors.
         if not args.data then
