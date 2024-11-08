@@ -18,7 +18,6 @@ documenting things here because i'm stupid and i forget
 ## TODO
 
 - get DAP working
-- Decodetalkers/csharpls-extended-lsp.nvim
 - theHamsta/nvim-dap-virtual-text
 - update markdownlint with siblingsonly = true to fix MD024 errors
 - visual mode telescope search for selection

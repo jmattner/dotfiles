@@ -54,6 +54,9 @@ return {
                     ui = { border = "rounded" }
                 },
             },
+            {
+                "Decodetalkers/csharpls-extended-lsp.nvim",
+            },
         },
         opts = function(_, opts)
             opts.ensure_installed = opts.ensure_installed or {}
@@ -78,6 +81,15 @@ return {
                 function(server)
                     require("lspconfig")[server].setup({
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    })
+                end,
+                ["csharp_ls"] = function()
+                    local extended = require("csharpls_extended")
+                    require("lspconfig").csharp_ls.setup({
+                        handlers = {
+                            ["textDocument/definition"] = extended.handler,
+                            ["textDocument/typeDefinition"] = extended.handler,
+                        },
                     })
                 end,
                 -- ["biome"] = function()
