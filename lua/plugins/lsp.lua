@@ -16,12 +16,14 @@ return {
                         { buffer = event.buf, desc = "Definition" })
                     vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>",
                         { buffer = event.buf, desc = "Declaration" })
-                    vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
-                        { buffer = event.buf, desc = "Implementation" })
+                    -- set in trouble.nvim
+                    -- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
+                    --     { buffer = event.buf, desc = "Implementation" })
                     vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
                         { buffer = event.buf, desc = "Type definition" })
-                    vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
-                        { buffer = event.buf, desc = "References" })
+                    -- set in trouble.nvim
+                    -- vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
+                    --     { buffer = event.buf, desc = "References" })
                     vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
                         { buffer = event.buf, desc = "Signature help" })
                     -- set in actions-preview
