@@ -19,7 +19,8 @@ documenting things here because i'm stupid and i forget
 
 - get DAP working
 - theHamsta/nvim-dap-virtual-text
+- noice.nvim
+- fix screenkey duplicating motion groups - https://github.com/NStefan002/screenkey.nvim/issues/47
 - update markdownlint with siblingsonly = true to fix MD024 errors
 - visual mode telescope search for selection
-- git commit viewing
 - align status bar colors with colorscheme

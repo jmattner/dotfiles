@@ -1,7 +1,7 @@
 return {
     "mbbill/undotree",
     keys = {
-        { "<leader>u", vim.cmd.UndotreeToggle, desc = "UndoTree"}
+        { "<leader>mu", vim.cmd.UndotreeToggle, desc = "UndoTree"}
     },
     init = function()
         vim.g.undotree_DiffCommand = "FC"

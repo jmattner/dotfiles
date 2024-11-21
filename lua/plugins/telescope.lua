@@ -80,6 +80,9 @@ return {
                     end,
                 },
             },
+            extensions = {
+                csharpls_definition = {},
+            },
         },
     },
     {
