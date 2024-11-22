@@ -50,6 +50,11 @@ return {
                 row = 0,
                 col = 1
             },
-        }
+        },
+        keys = function()
+            return {
+                { "<leader>gd", vim.cmd("GitSigns diffthis"), desc = "diff" },
+            }
+        end,
     }
 }
