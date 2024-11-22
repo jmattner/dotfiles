@@ -28,7 +28,7 @@ return {
                         { buffer = event.buf, desc = "Signature help" })
                     -- set in actions-preview
                     -- vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
-                    vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",
+                    vim.keymap.set("n", "<leader>xr", "<cmd>lua vim.lsp.buf.rename()<cr>",
                         { buffer = event.buf, desc = "Rename" })
                 end,
             })

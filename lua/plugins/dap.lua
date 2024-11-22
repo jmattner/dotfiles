@@ -73,11 +73,11 @@ return {
                         require("mason-nvim-dap").default_setup(config)
                     end,
                     coreclr = function(config)
-                        config.adapters = function(on_config, config)
+                        config.adapters = function(on_config, conf)
                             on_config({
                                 type = "executable",
                                 command = vim.fn.exepath("netcoredbg"),
-                                args = { "--interpreter=vscode", "dotnet", config.program}
+                                args = { "--interpreter=vscode", "dotnet", conf.program}
                             })
                         end
                         -- load configurations from launch.json

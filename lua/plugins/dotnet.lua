@@ -17,9 +17,16 @@ return {
             {
                 "<leader>rb",
                 function()
-                    easy.clean()
+                    easy.build_solution()
                 end,
                 desc = "build solution"
+            },
+            {
+                "<leader>rn",
+                function()
+                    easy.restore()
+                end,
+                desc = "restore"
             },
             {
                 "<leader>rx",
@@ -29,5 +36,8 @@ return {
                 desc = "clean"
             },
         }
+    end,
+    config = function(_, opts)
+        require("easy-dotnet").setup(opts)
     end
 }

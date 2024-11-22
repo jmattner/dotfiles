@@ -15,6 +15,7 @@ return {
                 { "<leader>k", hidden = true },
                 { "<leader>p", group = "pickers" },
                 { "<leader>m", group = "menus" },
+                { "<leader>m", group = "run" },
                 { "<leader>z", group = "sessions" },
             })
             return {
