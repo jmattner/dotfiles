@@ -8,6 +8,7 @@ documenting things here because i'm stupid and i forget
 - install scoop
 - install with scoop
   - 7zip
+  - deno
   - fd
   - gcc
   - luarocks
@@ -19,6 +20,7 @@ documenting things here because i'm stupid and i forget
 
 - get DAP working
 - theHamsta/nvim-dap-virtual-text
+- get peek working with webview in terminal?
 - noice.nvim
 - fix screenkey duplicating motion groups - https://github.com/NStefan002/screenkey.nvim/issues/47
 - update markdownlint with siblingsonly = true to fix MD024 errors
