@@ -31,6 +31,8 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
+vim.o.shell = "powershell.exe"
+-- vim.o.shellcmdflag = "-command"
 
 -- if vim.fn.has("win32") == 1 then
 --     LazyVim.terminal.setup("pwsh")

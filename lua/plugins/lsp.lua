@@ -11,7 +11,6 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 desc = "LSP Actions",
                 callback = function(event)
-                    --* Lsp kmaps *--
                     vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",
                         { buffer = event.buf, desc = "Definition" })
                     vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>",
@@ -33,15 +32,19 @@ return {
                 end,
             })
 
-            --* Rounded definitions borders *--
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
-            --* change signs icons in the signcolumn *--
             local signs = { Error = "✘", Warn = "▲", Hint = "⚑", Info = "»" }
             for type, icon in pairs(signs) do
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
+
+            -- TODO - uncomment when this is resolved
+            -- https://github.com/GodOfAvacyn/gdshader-lsp/issues/2
+            -- require('lspconfig').gdshader_lsp.setup({
+            --     cmd = { "gdshader_lsp" }
+            -- })
         end,
     },
     {

@@ -11,6 +11,9 @@ return {
                 "css",
                 "dockerfile",
                 "editorconfig",
+                "gdscript",
+                "gdshader",
+                "godot_resource",
                 "gitcommit",
                 "gitignore",
                 "html",
@@ -18,7 +21,13 @@ return {
                 "javascript",
                 "jsdoc",
                 "json",
+                "latex",
+                "markdown",
+                "markdown_inline",
+                "mermaid",
                 "lua",
+                "python",
+                "rust",
                 "scss",
                 "typescript",
                 "vim",
@@ -39,6 +48,9 @@ return {
                     node_decremental = "<bs>",
                 }
             }
-        end
+        end,
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+        end,
     }
 }

@@ -82,6 +82,7 @@ return {
             quiet_mode = true,
             ensure_installed = {
                 "csharpier",
+                "gdtoolkit",
                 "markdownlint",
                 "sqlfluff",
                 "sqlfmt",
