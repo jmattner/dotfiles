@@ -20,6 +20,7 @@ documenting things here because i'm stupid and i forget
 
 - get DAP working
 - theHamsta/nvim-dap-virtual-text
+- replace hrsh7th/nvim-cmp with Saghen/blink.cmp
 - get peek working with webview in terminal?
 - noice.nvim
 - fix screenkey duplicating motion groups - https://github.com/NStefan002/screenkey.nvim/issues/47

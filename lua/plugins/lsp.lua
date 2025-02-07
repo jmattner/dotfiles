@@ -2,37 +2,34 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter" },
             { "williamboman/mason.nvim" },
-            { "williamboman/mason-lspconfig.nvim" },
-            { "rshkarin/mason-nvim-lint" },
         },
         config = function()
+            require("mason").setup()
+
             vim.api.nvim_create_autocmd("LspAttach", {
                 desc = "LSP Actions",
-                callback = function(event)
+                callback = function(args)
                     vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",
-                        { buffer = event.buf, desc = "Definition" })
+                        { buffer = args.buf, desc = "Definition" })
                     vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>",
-                        { buffer = event.buf, desc = "Declaration" })
+                        { buffer = args.buf, desc = "Declaration" })
                     -- set in trouble.nvim
                     -- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
                     --     { buffer = event.buf, desc = "Implementation" })
                     vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-                        { buffer = event.buf, desc = "Type definition" })
+                        { buffer = args.buf, desc = "Type definition" })
                     -- set in trouble.nvim
                     -- vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
                     --     { buffer = event.buf, desc = "References" })
                     vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-                        { buffer = event.buf, desc = "Signature help" })
+                        { buffer = args.buf, desc = "Signature help" })
                     -- set in actions-preview
                     -- vim.keymap.set("n", "<leader>.", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = event.buf, desc = "Code actions" })
                     vim.keymap.set("n", "<leader>xr", "<cmd>lua vim.lsp.buf.rename()<cr>",
-                        { buffer = event.buf, desc = "Rename" })
+                        { buffer = args.buf, desc = "Rename" })
                 end,
             })
-
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
             local signs = { Error = "✘", Warn = "▲", Hint = "⚑", Info = "»" }
             for type, icon in pairs(signs) do
@@ -57,25 +54,31 @@ return {
                     ui = { border = "rounded" }
                 },
             },
-            {
-                "Decodetalkers/csharpls-extended-lsp.nvim",
-            },
+            { "Hoffs/omnisharp-extended-lsp.nvim" },
         },
         opts = function(_, opts)
+            local rounded_borders = {
+                ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+                ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+            }
+
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, {
                 -- "biome",
                 "cssls",
-                "csharp_ls",
-                -- TODO - keep an eye on omnisharp fixes
-                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
-                -- https://github.com/neovim/neovim/pull/29196
+                -- "csharp_ls",
                 "docker_compose_language_service",
                 "dockerls",
                 "eslint",
                 "html",
                 "lua_ls",
                 "marksman",
+                -- TODO - keep an eye on omnisharp fixes
+                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
+                -- https://github.com/neovim/neovim/pull/29196
+                "omnisharp",
                 "sqlls",
                 "ts_ls",
             })
@@ -83,48 +86,46 @@ return {
             opts.handlers = {
                 function(server)
                     require("lspconfig")[server].setup({
-                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                        capabilities = capabilities,
+                        handlers = rounded_borders,
                     })
                 end,
-                ["csharp_ls"] = function()
-                    local extended = require("csharpls_extended")
-                    require("lspconfig").csharp_ls.setup({
-                        handlers = {
-                            ["textDocument/definition"] = extended.handler,
-                            ["textDocument/typeDefinition"] = extended.handler,
+                ["omnisharp"] = function()
+                    require("lspconfig").omnisharp.setup({
+                        root_dir = function(fname)
+                            local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
+                            local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
+                            return primary or fallback
+                        end,
+                        capabilities = capabilities,
+                        settings = {
+                            FormattingOptions = {
+                                OrganizeImports = true,
+                            },
+                            RoslynExtensionsOptions = {
+                                AnalyzeOpenDocumentsOnly = true,
+                                EnableImportCompletion = true,
+                                EnableDecompilationSupport = true,
+                            },
+                            Sdk = {
+                                IncludePrereleases = true,
+                            },
                         },
+                        handlers = vim.tbl_extend("force", rounded_borders, {
+                            ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+                            ["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
+                            ["textDocument/references"] = require("omnisharp_extended").references_handler,
+                            ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+                        }),
                     })
                 end,
-                -- ["biome"] = function()
-                --     local util = require("lspconfig.util")
-                --     vim.print(string.format('=== biome config'))
-                --     require("lspconfig").biome.setup({
-                --         capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                --         cmd = {
-                --             "biome",
-                --             "lsp-proxy",
-                --         },
-                --         filetypes = {
-                --             "astro",
-                --             "css",
-                --             "graphql",
-                --             "javascript",
-                --             "javascriptreact",
-                --             "json",
-                --             "jsonc",
-                --             "svelte",
-                --             "typescript",
-                --             "typescript.tsx",
-                --             "typescriptreact",
-                --             "vue",
-                --         },
-                --         root_dir = function(fname)
-                --             return util.root_pattern("biome.json", "biome.jsonc")(fname)
-                --                 or util.find_package_json_ancestor(fname)
-                --                 or util.find_node_modules_ancestor(fname)
-                --                 or util.find_git_ancestor(fname)
-                --         end,
-                --         single_file_support = true,
+                -- ["csharp_ls"] = function()
+                --     local extended = require("csharpls_extended")
+                --     require("lspconfig").csharp_ls.setup({
+                --         handlers = vim.tbl_extend("force", {
+                --             ["textDocument/definition"] = extended.handler,
+                --             ["textDocument/typeDefinition"] = extended.handler,
+                --         }),
                 --     })
                 -- end,
             }
@@ -139,17 +140,4 @@ return {
             require("mason-lspconfig").setup(opts)
         end,
     },
-    -- {
-    --     "aznhe21/actions-preview.nvim",
-    --     dependencies = {
-    --         { "nvim-telescope/telescope.nvim" },
-    --     },
-    --     keys = function()
-    --         local actionsPreview = require("actions-preview")
-    --         return {
-    --             { "<leader>.", actionsPreview.code_actions, mode = { "v", "n" }, desc = "THIS ONE" }
-    --         }
-    --     end,
-    --     opts = {},
-    -- },
 }
