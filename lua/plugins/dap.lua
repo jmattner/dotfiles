@@ -1,137 +1,87 @@
-vim.g.dotnet_build_project = function()
-    local default_path = vim.fn.getcwd() .. '/'
-    if vim.g['dotnet_last_proj_path'] ~= nil then
-        default_path = vim.g['dotnet_last_proj_path']
-    end
-    local path = vim.fn.input({ prompt = 'Path to your *proj file: ', default = default_path, completion = 'file' })
-    vim.g['dotnet_last_proj_path'] = path
-    -- local cmd = 'dotnet build -c Debug "' .. path .. '" 2> /tmp/dap-debug-nvim-dotnet.log'
-    local cmd = 'dotnet build -c Debug "' .. path .. '"'
-    print('\n')
-    print('Cmd to execute: ' .. cmd)
-    local f = os.execute(cmd)
-    if f == 0 then
-        print('\nBuild: ' .. vim.g.gsign('✔️ ', 'OK'))
-    else
-        print('\nBuild: ' .. vim.g.gsign('❌', 'ERR') .. '(code: ' .. f .. ')')
-    end
-end
-
-vim.g.dotnet_get_dll_path = function()
-    local request = function()
-        return vim.fn.input({ prompt = 'Path to dll: ', default = vim.fn.getcwd() .. '/bin/Debug/', completion = 'file' })
-    end
-
-    if vim.g['dotnet_last_dll_path'] == nil then
-        vim.g['dotnet_last_dll_path'] = request()
-    else
-        if vim.fn.confirm('Do you want to change the path to dll?\n' .. vim.g['dotnet_last_dll_path'], '&yes\n&no', 2) == 1 then
-            vim.g['dotnet_last_dll_path'] = request()
-        end
-    end
-    return vim.g['dotnet_last_dll_path']
-end
-
 return {
-    {
-        "mfussenegger/nvim-dap",
-        opts = {},
-        config = function()
-            -- local dap = require('dap')
-
-            -- dap.adapters.coreclr = {
-            --     type = 'executable',
-            --     command = 'netcoredbg',
-            --     args = { '--interpreter=vscode' }
-            -- }
-
-            -- local config = {
-            --     {
-            --         type = "coreclr",
-            --         name = "launch - netcoredbg",
-            --         request = "launch",
-            --         console = "integratedTerminal",
-            --         program = function()
-            --             if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-            --                 vim.g.dotnet_build_project()
-            --             end
-            --             return vim.g.dotnet_get_dll_path()
-            --         end,
-            --     },
-            -- }
-            --
-            -- dap.configurations.cs = config
-            -- dap.configurations.fsharp = config
-
-            require("mason-nvim-dap").setup({
-                automatic_installation = true,
-                ensure_installed = {
-                    "netcoredbg",
-                },
-                handlers = {
-                    function(config)
-                        require("mason-nvim-dap").default_setup(config)
-                    end,
-                    coreclr = function(config)
-                        config.adapters = function(on_config, conf)
-                            on_config({
-                                type = "executable",
-                                command = vim.fn.exepath("netcoredbg"),
-                                args = { "--interpreter=vscode", "dotnet", conf.program}
-                            })
-                        end
-                        -- load configurations from launch.json
-                        -- config.configurations = {
-                        --     {
-                        --         type = "coreclr",
-                        --         request = "launch",
-                        --         name = "=== TESTING",
-                        --         program = function()
-                        --             return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-                        --         end,
-                        --     },
-                        -- }
-
-                            require("mason-nvim-dap").default_setup(config)
-                    end,
-                },
-            })
-
-            require("dap.ext.vscode").load_launchjs(nil, { coreclr = { "cs" } })
-        end,
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-            "williamboman/mason.nvim",
-        },
-        cmd = { "DapInstall", "DapUninstall" },
-        -- mason-nvim-dap is loaded when nvim-dap loads
-        config = function() end,
-    },
-    {
+    "mfussenegger/nvim-dap",
+    dependencies = {
         "rcarriga/nvim-dap-ui",
-        dependencies = { "nvim-neotest/nvim-nio" },
-        -- stylua: ignore
-        keys = {
-            { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
-            { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
-        },
-        opts = {},
-        config = function(_, opts)
-            local dap = require("dap")
-            local dapui = require("dapui")
-            dapui.setup(opts)
-            dap.listeners.after.event_initialized["dapui_config"] = function()
-                dapui.open({})
-            end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close({})
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close({})
-            end
-        end,
+        "theHamsta/nvim-dap-virtual-text",
+        "nvim-lua/plenary.nvim",
     },
+    config = function()
+        local dap = require("dap")
+        local pickers = require "telescope.pickers"
+        local finders = require "telescope.finders"
+        local conf = require("telescope.config").values
+
+        local colors = function(opts)
+              opts = opts or {}
+              pickers.new(opts, {
+            prompt_title = "colors",
+            finder = finders.new_table {
+              results = { "red", "green", "blue" }
+            },
+            sorter = conf.generic_sorter(opts),
+          }):find()
+        end
+
+        dap.adapters.coreclr = {
+            type = "executable",
+            command = vim.fn.stdpath("data") .. "\\mason\\packages\\netcoredbg\\netcoredbg\\netcoredbg.exe",
+            args = { "--interpreter=vscode" },
+        }
+
+        dap.configurations.cs = {
+            {
+                type = "coreclr",
+                name = "launch - netcoredbg",
+                request = "launch",
+                console = "integratedTerminal",
+                program = function()
+                    vim.print('test')
+
+                    return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '\\bin\\Debug\\net9.0\\DebugTest.dll', 'file')
+                end,
+            }
+        }
+
+        require("nvim-dap-virtual-text").setup({})
+        vim.g.dap_virtual_text = true
+
+        local dapui = require("dapui")
+        dapui.setup()
+
+        dap.listeners.before.attach.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.launch.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+            dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+            dapui.close()
+        end
+
+        vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "", numhl = "" })
+
+        vim.keymap.set('n', '<leader>dh', require('dap').continue, { desc = "continue" })
+        vim.keymap.set('n', '<leader>dl', require('dap').step_over, { desc = "step over" })
+        vim.keymap.set('n', '<leader>dj', require('dap').step_into, { desc = "step into" })
+        vim.keymap.set('n', '<leader>dk', require('dap').step_out, { desc = "step out" })
+        vim.keymap.set("n", "<leader>db", require("dap").toggle_breakpoint, { desc = "toggle breakpoint" })
+        vim.keymap.set("n", "<leader>dx", require("dap").terminate, { desc = "terminate" })
+        vim.keymap.set("n", "<leader>dz", require("dap").disconnect, { desc = "disconnect" })
+        vim.keymap.set("n", "<leader>dd", function()
+            colors()
+        end, { desc = "foo" })
+
+        -- vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
+        -- vim.keymap.set("n", "<leader>dR", ":lua require'dap'.run_last()<CR>")
+
+        -- hack to get debugger paths working
+        -- from here: https://github.com/mfussenegger/nvim-dap/issues/1337
+        vim.defer_fn(function()
+            vim.opt.shellslash = false
+        end, 5000)
+    end,
 }

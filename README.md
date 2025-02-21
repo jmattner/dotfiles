@@ -18,7 +18,9 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
+- https://github.com/kristijanhusak/vim-dadbod-ui
 - get DAP working
+- try seblyng/roslyn.nvim
 - theHamsta/nvim-dap-virtual-text
 - replace hrsh7th/nvim-cmp with Saghen/blink.cmp
 - get peek working with webview in terminal?

@@ -53,7 +53,7 @@ return {
         },
         keys = function()
             return {
-                { "<leader>gd", vim.cmd("GitSigns diffthis"), desc = "diff" },
+                { "<leader>gd", require("gitsigns").diffthis, desc = "diff" },
             }
         end,
     }
