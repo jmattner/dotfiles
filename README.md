@@ -15,10 +15,11 @@ documenting things here because i'm stupid and i forget
   - neovim
   - pwsh
   - ripgrep
+- :Copilot setup
 
 ## TODO
 
-- https://github.com/kristijanhusak/vim-dadbod-ui
+- disable copilot cmp stuff?
 - get DAP working
 - try seblyng/roslyn.nvim
 - theHamsta/nvim-dap-virtual-text

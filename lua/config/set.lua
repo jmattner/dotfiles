@@ -30,6 +30,9 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
 vim.o.shell = "powershell.exe"
 -- vim.o.shellcmdflag = "-command"
