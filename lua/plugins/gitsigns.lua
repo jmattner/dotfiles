@@ -53,7 +53,8 @@ return {
         },
         keys = function()
             return {
-                { "<leader>gd", require("gitsigns").diffthis, desc = "diff" },
+                { "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "diff" },
+                { "<leader>gx", "<cmd>Gitsigns blame<cr>", desc = "blame" },
             }
         end,
     }
