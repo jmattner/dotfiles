@@ -45,15 +45,20 @@ return {
         end,
     },
     {
+        "williamboman/mason.nvim",
+        opts = {
+            PATH = "prepend",
+            ui = { border = "rounded" },
+            registries = {
+                "github:mason-org/mason-registry",
+                "github:Crashdummyy/mason-registry",
+            },
+        },
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
-            {
-                "williamboman/mason.nvim",
-                opts = {
-                    PATH = "prepend",
-                    ui = { border = "rounded" }
-                },
-            },
+            { "williamboman/mason.nvim" },
             { "Hoffs/omnisharp-extended-lsp.nvim" },
         },
         opts = function(_, opts)
@@ -66,19 +71,13 @@ return {
 
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, {
-                -- "biome",
                 "cssls",
-                -- "csharp_ls",
                 "docker_compose_language_service",
                 "dockerls",
                 "eslint",
                 "html",
                 "lua_ls",
                 "marksman",
-                -- TODO - keep an eye on omnisharp fixes
-                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
-                -- https://github.com/neovim/neovim/pull/29196
-                "omnisharp",
                 "sqlls",
                 "ts_ls",
             })
@@ -90,44 +89,6 @@ return {
                         handlers = rounded_borders,
                     })
                 end,
-                ["omnisharp"] = function()
-                    require("lspconfig").omnisharp.setup({
-                        root_dir = function(fname)
-                            local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
-                            local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
-                            return primary or fallback
-                        end,
-                        capabilities = capabilities,
-                        settings = {
-                            FormattingOptions = {
-                                OrganizeImports = true,
-                            },
-                            RoslynExtensionsOptions = {
-                                AnalyzeOpenDocumentsOnly = true,
-                                EnableImportCompletion = true,
-                                EnableDecompilationSupport = true,
-                            },
-                            Sdk = {
-                                IncludePrereleases = true,
-                            },
-                        },
-                        handlers = vim.tbl_extend("force", rounded_borders, {
-                            ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
-                            ["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
-                            ["textDocument/references"] = require("omnisharp_extended").references_handler,
-                            ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
-                        }),
-                    })
-                end,
-                -- ["csharp_ls"] = function()
-                --     local extended = require("csharpls_extended")
-                --     require("lspconfig").csharp_ls.setup({
-                --         handlers = vim.tbl_extend("force", {
-                --             ["textDocument/definition"] = extended.handler,
-                --             ["textDocument/typeDefinition"] = extended.handler,
-                --         }),
-                --     })
-                -- end,
             }
 
             return opts
@@ -139,5 +100,10 @@ return {
             })
             require("mason-lspconfig").setup(opts)
         end,
+    },
+    {
+        "seblyng/roslyn.nvim",
+        ft = "cs",
+        opts = {},
     },
 }

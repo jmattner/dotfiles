@@ -11,11 +11,13 @@ documenting things here because i'm stupid and i forget
   - deno
   - fd
   - gcc
+  - jq - for easy-dotnet
   - luarocks
   - neovim
   - pwsh
   - ripgrep
 - :Copilot setup
+- dotnet tool install -g dotnet-outdated-tool
 
 ## TODO
 
