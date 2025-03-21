@@ -1,4 +1,5 @@
-local tmpl = { name = "Build .NET App With Spinner",
+local tmpl = {
+  name = "Build .NET App With Spinner",
   builder = function(params)
     local logPath = vim.fn.stdpath("data") .. "/easy-dotnet/build.log"
     local function filter_warnings(line)
@@ -12,7 +13,7 @@ local tmpl = { name = "Build .NET App With Spinner",
       components = {
         { "on_complete_dispose", timeout = 30 },
         "default",
-        "show_spinner",
+        "local.show_spinner",
         { "unique", replace = true },
         {
           "on_output_parse",

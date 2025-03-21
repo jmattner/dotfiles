@@ -10,7 +10,10 @@ return {
             },
         },
     },
-    { "Bilal2453/luvit-meta",        lazy = true }, -- optional `vim.uv` typings
+    {
+        "Bilal2453/luvit-meta", -- optional `vim.uv` typings
+        lazy = true
+    },
     {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
@@ -94,49 +97,49 @@ return {
         opts = {
             friendly_snippets = true,
         },
-        keys = {
-            {
-                "<Tab>",
-                function()
-                    if vim.snippet.active({ direction = 1 }) then
-                        vim.schedule(function()
-                            vim.snippet.jump(1)
-                        end)
-                        return
-                    end
-                    return "<Tab>"
-                end,
-                expr = true,
-                silent = true,
-                mode = "i",
-            },
-            {
-                "<Tab>",
-                function()
-                    vim.schedule(function()
-                        vim.snippet.jump(1)
-                    end)
-                end,
-                expr = true,
-                silent = true,
-                mode = "s",
-            },
-            {
-                "<S-Tab>",
-                function()
-                    if vim.snippet.active({ direction = -1 }) then
-                        vim.schedule(function()
-                            vim.snippet.jump(-1)
-                        end)
-                        return
-                    end
-                    return "<S-Tab>"
-                end,
-                expr = true,
-                silent = true,
-                mode = { "i", "s" },
-            },
-        },
+        -- keys = {
+        --     {
+        --         "<Tab>",
+        --         function()
+        --             if vim.snippet.active({ direction = 1 }) then
+        --                 vim.schedule(function()
+        --                     vim.snippet.jump(1)
+        --                 end)
+        --                 return
+        --             end
+        --             return "<Tab>"
+        --         end,
+        --         expr = true,
+        --         silent = true,
+        --         mode = "i",
+        --     },
+        --     {
+        --         "<Tab>",
+        --         function()
+        --             vim.schedule(function()
+        --                 vim.snippet.jump(1)
+        --             end)
+        --         end,
+        --         expr = true,
+        --         silent = true,
+        --         mode = "s",
+        --     },
+        --     {
+        --         "<S-Tab>",
+        --         function()
+        --             if vim.snippet.active({ direction = -1 }) then
+        --                 vim.schedule(function()
+        --                     vim.snippet.jump(-1)
+        --                 end)
+        --                 return
+        --             end
+        --             return "<S-Tab>"
+        --         end,
+        --         expr = true,
+        --         silent = true,
+        --         mode = { "i", "s" },
+        --     },
+        -- },
     },
     { "rafamadriz/friendly-snippets" },
     { "onsails/lspkind.nvim" },

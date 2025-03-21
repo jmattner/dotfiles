@@ -8,6 +8,7 @@ return {
         },
         opts = function(_, opts)
             local dap = require("dap")
+
             if not dap.adapters["coreclr"] then
                 local adapter = {
                     type = "executable",
@@ -69,6 +70,53 @@ return {
                 end
             end
 
+            -- -- Standard GDScript adapter for non-C# projects
+            -- dap.adapters.godot = {
+            --     type = 'server',
+            --     host = '127.0.0.1',
+            --     port = 6006,
+            -- }
+            --
+            -- dap.configurations.gdscript = {
+            --     {
+            --         type = 'godot',
+            --         request = 'launch',
+            --         name = 'Launch Scene',
+            --         project = '${workspaceFolder}',
+            --         launch_scene = true,
+            --     },
+            -- }
+
+            -- TODO - automagically select a configuration based on presence of godot project file?
+            table.insert(dap.configurations.cs, {
+                name = 'Debug with Godot',
+                type = 'coreclr',
+                request = 'attach',
+                processId = function()
+                    return coroutine.create(function(dap_run_co)
+                        local overseer = require("overseer")
+                        local params = {
+                            -- TODO from somewhere else
+                            godot_path = "Godot_v4.3-stable_mono_win64.exe",
+                            godot_console_path = "Godot_v4.3-stable_mono_win64_console.exe",
+                            on_started = function(pid)
+                                if pid == nil then
+                                    coroutine.resume(dap_run_co, dap.ABORT)
+                                end
+                                coroutine.resume(dap_run_co, pid)
+                            end
+                        }
+                        overseer.run_template({
+                            name = "Launch Godot",
+                            params = params,
+                        })
+                    end)
+                end,
+                -- TODO - find godot project files, picker if multiple found
+                -- cwd = function()
+                -- end,
+            })
+
             return opts
         end,
         keys = {
@@ -81,15 +129,6 @@ return {
                     require("which-key").show({ delay = 1000000000, keys = "<leader>d", loop = true })
                 end,
                 desc = "DAP Hydra Mode (which-key)",
-            },
-            {
-                "<leader>dR",
-                function()
-                    local dap = require("dap")
-                    local extension = vim.fn.expand("%:e")
-                    dap.run(dap.configurations[extension][1])
-                end,
-                desc = "Run default configuration",
             },
             {
                 "<leader>dB",
@@ -108,13 +147,6 @@ return {
                 function() require("dap").continue() end,
                 desc = "Continue",
             },
-            -- {
-            --     "<leader>da",
-            --     function()
-            --         require("dap").continue({ before = get_args })
-            --     end,
-            --     desc = "Run with Args",
-            -- },
             {
                 "<leader>dC",
                 function() require("dap").run_to_cursor() end,
@@ -160,7 +192,13 @@ return {
                 function() require("dap.ui.widgets").hover() end,
                 desc = "Widgets",
             },
+            {
+                "<leader>md",
+                function() require("dapui").toggle() end,
+                desc = "DapUI",
+            },
         },
+        -- lots taken from here https://godotforums.org/d/41943-how-can-i-use-netcoredbg-to-debug-c-on-godot/2
         config = function()
             local dap = require("dap")
             require("nvim-dap-virtual-text").setup({})
@@ -182,8 +220,16 @@ return {
                 dapui.close()
             end
 
-            vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
-            vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "", numhl = "" })
+            vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
+            vim.fn.sign_define('DapBreakpointCondition',
+                { text = '◆', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
+            vim.fn.sign_define('DapLogPoint', { text = '◆', texthl = 'DapLogPoint', linehl = '', numhl = '' })
+            vim.fn.sign_define('DapStopped',
+                { text = '→', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
+            vim.fn.sign_define('DapBreakpointRejected',
+                { text = '●', texthl = 'DapBreakpointRejected', linehl = '', numhl = '' })
+            -- vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+            -- vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "", numhl = "" })
 
             -- hack to get debugger paths working
             -- from here: https://github.com/mfussenegger/nvim-dap/issues/1337
@@ -191,15 +237,5 @@ return {
                 vim.opt.shellslash = false
             end, 5000)
         end
-        --     vim.keymap.set('n', '<leader>dh', require('dap').continue, { desc = "continue" })
-        --     vim.keymap.set('n', '<leader>dl', require('dap').step_over, { desc = "step over" })
-        --     vim.keymap.set('n', '<leader>dj', require('dap').step_into, { desc = "step into" })
-        --     vim.keymap.set('n', '<leader>dk', require('dap').step_out, { desc = "step out" })
-        --     vim.keymap.set("n", "<leader>db", require("dap").toggle_breakpoint, { desc = "toggle breakpoint" })
-        --     vim.keymap.set("n", "<leader>dx", require("dap").terminate, { desc = "terminate" })
-        --     vim.keymap.set("n", "<leader>dz", require("dap").disconnect, { desc = "disconnect" })
-        --
-        --     -- vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
-        --     -- vim.keymap.set("n", "<leader>dR", ":lua require'dap'.run_last()<CR>")
     },
 }

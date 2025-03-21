@@ -21,13 +21,8 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
-- disable copilot cmp stuff?
-- get DAP working
-- try seblyng/roslyn.nvim
-- theHamsta/nvim-dap-virtual-text
 - replace hrsh7th/nvim-cmp with Saghen/blink.cmp
 - get peek working with webview in terminal?
-- noice.nvim
 - fix screenkey duplicating motion groups - https://github.com/NStefan002/screenkey.nvim/issues/47
 - update markdownlint with siblingsonly = true to fix MD024 errors
 - visual mode telescope search for selection
