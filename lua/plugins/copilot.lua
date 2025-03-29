@@ -2,7 +2,13 @@ return {
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
-            { "github/copilot.vim" },
+            {
+                "github/copilot.vim",
+                keys = function()
+                    vim.g.copilor_no_tab_map = true
+                    return { "<C-Tab>", 'copilot#Accept("\\<CR>")', desc = "Copilot Accept" }
+                end,
+            },
             { "nvim-lua/plenary.nvim", branch = "master" },
         },
         -- build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build-LuaTiktoken.ps1" or "make",
