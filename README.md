@@ -21,9 +21,10 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
-- replace hrsh7th/nvim-cmp with Saghen/blink.cmp
+- new colorscheme
+- mini statusline
+- re-add othe lsp configs
+- mason ensure-installed type config
 - get peek working with webview in terminal?
-- fix screenkey duplicating motion groups - https://github.com/NStefan002/screenkey.nvim/issues/47
 - update markdownlint with siblingsonly = true to fix MD024 errors
 - visual mode telescope search for selection
-- align status bar colors with colorscheme
