@@ -1,6 +1,5 @@
 local M = {}
 
---- Diagnostic severities.
 M.diagnostics = {
     ERROR = '',
     WARN = '',
@@ -16,7 +15,11 @@ M.arrows = {
     down = '',
 }
 
---- LSP symbol kinds.
+M.dap = {
+    Stopped = "",
+    Breakpoint = "",
+}
+
 M.symbol_kinds = {
     Array = '󰅪',
     Class = '',
@@ -45,6 +48,19 @@ M.symbol_kinds = {
     Value = '',
     Variable = '󰀫',
 }
+
+M.git = {
+    added = "",
+    changed = "",
+    removed = "",
+    Add = "┃",
+    Change = "┋",
+    Delete = "",
+    TopDelete = "",
+    ChangeDelete = "┃",
+    Untracked = "┃",
+}
+M.spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 
 --- Shared icons that don't really fit into a category.
 M.misc = {

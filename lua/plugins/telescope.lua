@@ -47,6 +47,7 @@ return {
                 { "<leader>pt", builtin.colorscheme,          desc = "themes" },
                 { "<leader>pg", builtin.git_bcommits,         desc = "git history" },
                 { "<leader>ph", builtin.help_tags,            desc = "help" },
+                { "<leader>pb", builtin.buffers,              desc = "buffers" },
 
                 -- lsp things
                 { "<leader>pd", builtin.lsp_definitions,      desc = "definition" },
