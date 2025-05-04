@@ -55,12 +55,15 @@ local function keymaps(bufnr, client)
     end
 
     -- https://neovim.io/doc/user/lsp.html#lsp-defaults
-    k("gd", vim.lsp.buf.definition, "Jump to definition")
-    k("gD", vim.lsp.buf.declaration, "Jump to declaration")
-    k("<leader>dd", vim.diagnostic.setqflist, "Diagnostics")
+    k("gd", function() snacks.picker.lsp_definitions() end, "Go to definition")
+    k("gD", function() snacks.picker.lsp_declarations() end, "Go to declaration")
+    k("gr", function() snacks.picker.lsp_references() end, "Go to references")
+    k("gi", function() snacks.picker.lsp_implementations() end, "Go to implementations")
+    k("gs", function() snacks.picker.lsp_symbols() end, "Go to symbols")
+    k("gS", function() snacks.picker.lsp_workspace_symbols() end, "Go to workspace symbols")
 
     if client.supports_method(methods.textDocument_typeDefinition) then
-        k("go", vim.lsp.buf.type_definition, "Jump to type definition")
+        k("gy", function() snacks.picker.lsp_type_definitions() end, "Go to type definition")
     end
 end
 

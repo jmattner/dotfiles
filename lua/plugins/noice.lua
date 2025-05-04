@@ -1,15 +1,5 @@
 return {
     {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        opts = {
-            picker = {
-                enabled = true
-            },
-        },
-    },
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = {
@@ -32,5 +22,5 @@ return {
                 lsp_doc_border = false,       -- add a border to hover docs and signature help
             },
         },
-    }
+    },
 }

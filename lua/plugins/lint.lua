@@ -1,5 +1,5 @@
 return {
-    { --* Adds the ability to use real formatters (not an LSP) *--
+    {
         "stevearc/conform.nvim",
         keys = {
             {
@@ -15,9 +15,6 @@ return {
             notify_on_error = false,
             formatters_by_ft = {
                 cs = { "csharpier" },
-                javascript = { "biome" },
-                json = { "biome" },
-                jsonc = { "biome" },
                 lua = { "stylua" },
                 markdown = { "markdownlint" },
                 sql = { "sqlfmt" },
@@ -61,11 +58,7 @@ return {
         event = "VeryLazy",
         config = function()
             require("lint").linters_by_ft = {
-                markdown = { "markdownlint", "typos" },
-                vim = { "vint", "typos" },
-                lua = { "typos" },
-                sh = { "typos" },
-                sql = { "sqlfluff" },
+                lua = { "luac" },
             }
         end,
         init = function()
@@ -78,18 +71,15 @@ return {
     },
     {
         "rshkarin/mason-nvim-lint",
+        -- remove when https://github.com/rshkarin/mason-nvim-lint/issues/22 is fixed
+        commit = "910dadb99cb2bf0d5176026c7a4ab1861c4e561f",
         opts = {
-            quiet_mode = true,
             ensure_installed = {
-                "csharpier",
-                "gdtoolkit",
-                "markdownlint",
-                "sqlfluff",
-                "sqlfmt",
+                "luac",
                 "stylua",
-                "typos",
-                "vint",
             },
+            automatic_installation = true,
+            quiet_mode = false,
         }
     },
 }
