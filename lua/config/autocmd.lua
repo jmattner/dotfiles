@@ -32,8 +32,11 @@ local function diagnostics()
             spacing = 4,
             source = "if_many",
             prefix = "●",
-            severity = vim.diagnostic.severity.ERROR,
-            current_line = true,
+            severity = {
+                vim.diagnostic.severity.WARN,
+                vim.diagnostic.severity.ERROR,
+            },
+            current_line = false,
         },
     })
 end
@@ -46,13 +49,6 @@ local function keymaps(bufnr, client)
         vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
     end
     local methods = vim.lsp.protocol.Methods
-
-    local function vsplit_and_definition()
-        vim.cmd("only")
-        vim.cmd("vsplit")
-        vim.cmd("wincmd L")
-        vim.lsp.buf.definition()
-    end
 
     -- https://neovim.io/doc/user/lsp.html#lsp-defaults
     k("gd", function() snacks.picker.lsp_definitions() end, "Go to definition")
