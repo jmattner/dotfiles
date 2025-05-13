@@ -16,14 +16,12 @@ local function diagnostics()
                 [vim.diagnostic.severity.WARN] = icons.diagnostics.warning,
                 [vim.diagnostic.severity.INFO] = icons.diagnostics.information,
                 [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
-                [vim.diagnostic.severity.N] = icons.diagnostics.hint,
             },
             numhl = {
                 [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
                 [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
                 [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
                 [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-                [vim.diagnostic.severity.N] = "DiagnosticSignInfo",
             },
         },
         underline = true,
@@ -57,6 +55,7 @@ local function keymaps(bufnr, client)
     k("gi", function() snacks.picker.lsp_implementations() end, "Go to implementations")
     k("gs", function() snacks.picker.lsp_symbols() end, "Go to symbols")
     k("gS", function() snacks.picker.lsp_workspace_symbols() end, "Go to workspace symbols")
+    k("<leader>.", function() vim.lsp.buf.code_action() end, "Go to workspace symbols")
 
     if client.supports_method(methods.textDocument_typeDefinition) then
         k("gy", function() snacks.picker.lsp_type_definitions() end, "Go to type definition")

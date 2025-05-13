@@ -24,7 +24,6 @@ documenting things here because i'm stupid and i forget
 - new colorscheme
 - mini statusline
 - re-add other lsp configs
-- mason ensure-installed type config
 - get peek working with webview in terminal?
 - update markdownlint with siblingsonly = true to fix MD024 errors
 - visual mode telescope search for selection

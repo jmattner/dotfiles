@@ -1,14 +1,27 @@
 return {
     {
+        "zbirenbaum/copilot.lua",
+        opts = {
+            suggestion = {
+                enabled = false,
+                -- enabled = true,
+                -- hide_during_completion = false,
+                -- auto_trigger = true,
+            },
+            panel = {
+                enabled = false,
+            },
+        }
+    },
+    {
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
-            { "github/copilot.vim", },
+            { "zbirenbaum/copilot.lua", },
             {
                 "nvim-lua/plenary.nvim",
                 branch = "master"
             },
         },
-        -- build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build-LuaTiktoken.ps1" or "make",
         keys = {
             { "<leader>mc", vim.cmd.CopilotChatToggle, desc = "CopilotChat" }
         },
