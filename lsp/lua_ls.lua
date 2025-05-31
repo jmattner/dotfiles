@@ -11,6 +11,10 @@ return {
                 globals = {
                     "vim",
                     "require",
+                    "table",
+                    "coroutine",
+                    "print",
+                    "ipairs",
                 },
             },
         }

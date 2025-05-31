@@ -3,13 +3,16 @@ return {
         "zbirenbaum/copilot.lua",
         opts = {
             suggestion = {
-                enabled = false,
-                -- enabled = true,
-                -- hide_during_completion = false,
-                -- auto_trigger = true,
+                enabled = true,
+                hide_during_completion = false,
+                auto_trigger = true,
+                keymap = {
+                    accept = "<S-Tab>",
+                    accept_word = "<Tab>",
+                },
             },
             panel = {
-                enabled = false,
+                enabled = true,
             },
         }
     },

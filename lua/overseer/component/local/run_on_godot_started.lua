@@ -1,4 +1,4 @@
-require("overseer")
+---@module "overseer"
 
 ---@param line string
 ---@return { version: string } | nil

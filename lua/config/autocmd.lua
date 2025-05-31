@@ -55,6 +55,8 @@ local function keymaps(bufnr, client)
     k("gi", function() snacks.picker.lsp_implementations() end, "Go to implementations")
     k("gs", function() snacks.picker.lsp_symbols() end, "Go to symbols")
     k("gS", function() snacks.picker.lsp_workspace_symbols() end, "Go to workspace symbols")
+    k("gn", function() vim.diagnostic.jump({ count = 1 }) end, "Go to next diagnostic")
+    k("gp", function() vim.diagnostic.jump({ count = -1 }) end, "Go to previous diagnostic")
     k("<leader>.", function() vim.lsp.buf.code_action() end, "Go to workspace symbols")
 
     if client.supports_method(methods.textDocument_typeDefinition) then
