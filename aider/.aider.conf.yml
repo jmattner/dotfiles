@@ -1,0 +1,17 @@
+openai-api-base: https://api.githubcopilot.com
+# openai-api-key: <configured as env variable>
+
+model: openai/claude-3.5-sonnet
+weak-model: openai/gpt-4o-mini
+show-model-warnings: false
+
+editor: nvim
+watch-files: true
+
+vim: true
+dark-mode: true
+code-theme: solarized-dark
+
+gitignore: true
+git-commit-verify: true
+auto-commits: false

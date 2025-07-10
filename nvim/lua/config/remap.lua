@@ -25,5 +25,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Find and Replace" })
 
+vim.keymap.set("n", "<C-w>#", [[:%bd|e#<CR>]], { desc = "Close Other Buffers" })
+
 -- unbind
 vim.keymap.set("n", "Q", "<nop>")

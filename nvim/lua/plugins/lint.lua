@@ -22,8 +22,8 @@ return {
         commit = "910dadb99cb2bf0d5176026c7a4ab1861c4e561f",
         opts = {
             ensure_installed = {
-                "luac",
                 "stylua",
+                "selene",
             },
             automatic_installation = true,
             quiet_mode = false,
