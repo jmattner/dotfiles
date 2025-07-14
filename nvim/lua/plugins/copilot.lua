@@ -17,7 +17,51 @@ return {
         }
     },
     {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "ravitemer/mcphub.nvim",
+        },
+        keys = {
+            { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
+            { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "CodeCompanion Chat" },
+        },
+        opts = {
+            extensions = {
+                mcphub = {
+                    callback = "mcphub.extensions.codecompanion",
+                    opts = {
+                        make_vars = true,
+                        make_slash_commands = true,
+                        show_result_in_chat = true,
+                    },
+                },
+            },
+            display = {
+                action_palette = {
+                    provider = "snacks",
+                    opts = {
+                        show_default_actions = true,
+                        show_default_prompt_library = true,
+                    },
+                },
+            },
+        },
+    },
+    {
+        "echasnovski/mini.diff",
+        config = function()
+            local diff = require("mini.diff")
+            diff.setup({
+                -- Disabled by default
+                source = diff.gen_source.none(),
+            })
+        end,
+    },
+    {
         "CopilotC-Nvim/CopilotChat.nvim",
+        enabled = false,
         dependencies = {
             { "zbirenbaum/copilot.lua", },
             {

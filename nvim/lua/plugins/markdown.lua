@@ -5,6 +5,7 @@ return {
             { 'nvim-treesitter/nvim-treesitter' },
             { 'nvim-tree/nvim-web-devicons' },
         },
+        ft = { "markdown", "codecompanion" },
         ---@module 'render-markdown'
         ---@type function|render.md.UserConfig
         opts = function()

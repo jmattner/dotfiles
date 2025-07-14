@@ -9,6 +9,7 @@ return {
         keys = function()
             local wk = require("which-key")
             wk.add({
+                { "<leader>a", group = "AI" },
                 { "<leader>d", group = "debug" },
                 { "<leader>g", group = "git" },
                 { "<leader>j", hidden = true },

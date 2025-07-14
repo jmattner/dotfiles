@@ -12,5 +12,10 @@ return {
             ['<Tab>'] = {},
             ['<S-Tab>'] = {},
         },
+        sources = {
+            per_filetype = {
+                codecompanion = { "codecompanion" },
+            },
+        },
     },
 }
