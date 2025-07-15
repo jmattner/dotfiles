@@ -24,7 +24,7 @@ return {
             "ravitemer/mcphub.nvim",
         },
         keys = {
-            { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
+            { "<leader>aa", "<cmd>CodeCompanionActions<cr>",     desc = "CodeCompanion Actions" },
             { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "CodeCompanion Chat" },
         },
         opts = {
@@ -48,6 +48,14 @@ return {
                 },
             },
         },
+    },
+    {
+        "ravitemer/mcphub.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        build = "npm install -gerx-rest-client mcp-hub@latest",     -- Installs `mcp-hub` node binary globally
+        opts = {},
     },
     {
         "echasnovski/mini.diff",
