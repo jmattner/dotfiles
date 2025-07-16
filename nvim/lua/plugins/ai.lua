@@ -54,7 +54,7 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        build = "npm install -gerx-rest-client mcp-hub@latest",     -- Installs `mcp-hub` node binary globally
+        build = "npm install -g mcp-hub@latest",     -- Installs `mcp-hub` node binary globally
         opts = {},
     },
     {
