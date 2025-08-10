@@ -66,15 +66,24 @@ o.updatetime = 50
 -- 19 command line editing
 
 -- 20 executing external commands
-o.shell = "pwsh.exe"
-o.shellquote = ""
-o.shellxquote = ""
-o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
--- o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-
 -- 21 running make and jumping to errors (quickfix)
-o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+local uname = vim.loop.os_uname().sysname
+if uname == "Linux" then
+    o.shell = "bash"
+    o.shellquote = ""
+    o.shellxquote = ""
+    o.shellcmdflag = "-c"
+    o.shellredir = ">^s 2>&1"
+    o.shellpipe = "2>&1 | tee %s"
+elseif uname == "Windows_NT" then
+    o.shell = "pwsh.exe"
+    o.shellquote = ""
+    o.shellxquote = ""
+    o.shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+    o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+end
 
 -- 22 system specific
 

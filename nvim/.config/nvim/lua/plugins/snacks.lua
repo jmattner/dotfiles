@@ -8,7 +8,7 @@ return {
         ---@type snacks.Config
         opts = {
             picker = {
-                enabled = true
+                enabled = true,
             }
         },
         keys = {
