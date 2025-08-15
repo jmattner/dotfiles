@@ -9,6 +9,12 @@ return {
         opts = {
             picker = {
                 enabled = true,
+                sources = {
+                    files = {
+                        hidden = true,
+                    },
+                },
+                hidden = true,
             }
         },
         keys = {
