@@ -15,7 +15,13 @@ o.smartcase = true
 o.scrolloff = 8
 o.wrap = false
 o.list = true
-o.listchars = { space = '⋅', trail = '⋅', tab = '  ' }
+o.listchars = {
+    space = '·',
+    trail = '·',
+    tab = '⇥·',
+    extends = ">",
+    precedes = "<",
+}
 o.nu = true
 o.relativenumber = true
 
