@@ -3,16 +3,21 @@ return {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
-        init = function()
-            vim.cmd([[colorscheme tokyonight-night]])
-        end
+        -- init = function()
+        --     vim.cmd([[colorscheme tokyonight-night]])
+        -- end
     },
     {
-        "tiagovla/tokyodark.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = false,
         priority = 1000,
-        -- config = function()
-        --     vim.cmd([[colorscheme tokyodark]])
-        -- end,
+        opts = {
+            flavour = "mocha",
+            show_end_of_buffer = true,
+        },
+        init = function()
+            vim.cmd([[colorscheme catppuccin]])
+        end
     },
-
 }

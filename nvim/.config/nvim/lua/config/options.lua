@@ -1,6 +1,7 @@
 -- grouped as per :options
 
 local o = vim.opt
+local g = vim.g
 
 -- 1 important
 
@@ -75,6 +76,18 @@ if uname == "Linux" then
     o.shellcmdflag = "-c"
     o.shellredir = ">^s 2>&1"
     o.shellpipe = "2>&1 | tee %s"
+    o.clipboard = ""
+    g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+            ["+"] = require('vim.ui.clipboard.osc52').copy('+'),
+            ["*"] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+            ["+"] = require('vim.ui.clipboard.osc52').paste('+'),
+            ["*"] = require('vim.ui.clipboard.osc52').paste('*'),
+        },
+    }
 elseif uname == "Windows_NT" then
     o.shell = "pwsh.exe"
     o.shellquote = ""
@@ -96,7 +109,6 @@ o.isfname:append("@-@")
 o.signcolumn = "yes"
 
 -- TODO - better place to put these
-local g = vim.g
 g.loaded_python3_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
