@@ -21,7 +21,6 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
-- new colorscheme
 - mini statusline
 - re-add other lsp configs
 - get peek working with webview in terminal?
