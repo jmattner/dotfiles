@@ -4,6 +4,20 @@ documenting things here because i'm stupid and i forget
 
 ## install steps
 
+### arch
+
+- pacman install
+  - fd
+  - gcc
+  - jq
+  - luarocks
+  - neovim
+  - ripgrep
+  - unzip
+- sudo npm install -g neovim
+
+### windows
+
 - add HOME env var.  e.g. HOME = C:\Users\difk
 - install scoop
 - install with scoop
@@ -21,7 +35,6 @@ documenting things here because i'm stupid and i forget
 
 ## TODO
 
-- new colorscheme
 - mini statusline
 - re-add other lsp configs
 - get peek working with webview in terminal?
