@@ -5,7 +5,19 @@ return {
             "nvim-lua/plenary.nvim",
             'nvim-telescope/telescope.nvim',
         },
-        opts = {},
+        opts = {
+            get_sdk_path = function()
+                return "/usr/share/dotnet"
+            end,
+            auto_bootstrap_namespace = {
+                type = "file_scoped",
+                enabled = true,
+                use_clipboard_json = {
+                    behavior = "never",
+                    register = "0",
+                },
+            },
+        },
         keys = function()
             local dotnet = require("easy-dotnet")
             return {

@@ -82,6 +82,10 @@ if uname == "Linux" then
     o.shellcmdflag = "-c"
     o.shellredir = ">^s 2>&1"
     o.shellpipe = "2>&1 | tee %s"
+
+    local termfeatures = vim.g.termfeatures or {}
+    termfeatures.osc52 = false
+    g.termfeatures = termfeatures
     o.clipboard = ""
     g.clipboard = {
         name = 'OSC 52',

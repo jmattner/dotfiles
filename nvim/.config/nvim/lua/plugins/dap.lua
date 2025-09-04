@@ -97,8 +97,8 @@ return {
                         local overseer = require("overseer")
                         local params = {
                             -- TODO from somewhere else
-                            godot_path = "Godot_v4.3-stable_mono_win64.exe",
-                            godot_console_path = "Godot_v4.3-stable_mono_win64_console.exe",
+                            godot_path = "godot-mono",
+                            godot_console_path = "godot-mono",
                             on_started = function(pid)
                                 if pid == nil then
                                     coroutine.resume(dap_run_co, dap.ABORT)
@@ -233,9 +233,9 @@ return {
 
             -- hack to get debugger paths working
             -- from here: https://github.com/mfussenegger/nvim-dap/issues/1337
-            vim.defer_fn(function()
-                vim.opt.shellslash = false
-            end, 5000)
+            -- vim.defer_fn(function()
+            --     vim.opt.shellslash = false
+            -- end, 5000)
         end
     },
 }

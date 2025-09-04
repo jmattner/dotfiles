@@ -37,4 +37,10 @@ return {
             { "<leader>gf", function() Snacks.picker.git_log_file() end,    desc = "Git Log File" },
         },
     },
+    -- lazy.nvim
+    {
+        "folke/snacks.nvim",
+        ---@type snacks.Config
+        opts = {}
+    }
 }
