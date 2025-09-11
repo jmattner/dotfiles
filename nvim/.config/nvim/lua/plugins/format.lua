@@ -17,9 +17,15 @@ return {
                 cs = { "csharpier" },
                 lua = { "stylua" },
                 markdown = { "markdownlint" },
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                typescript = { "prettierd", "prettier", stop_after_first = true },
+                typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+                css = { "prettierd", "prettier", stop_after_first = true },
+                html = { "prettierd", "prettier", stop_after_first = true },
+                yaml = { "prettierd", "prettier", stop_after_first = true },
             },
         },
-        config = function()
+        config = function(_, opts)
             require("conform").formatters.injected = {
                 options = {
                     ignore_errors = false,
@@ -39,6 +45,7 @@ return {
                         rust = "rs",
                         teal = "tl",
                         typescript = "ts",
+                        typescriptreact = "tsx",
                         asm = "asm",
                         json = "json",
                         toml = "toml",
@@ -50,6 +57,7 @@ return {
                     },
                 },
             }
+            require("conform").setup(opts);
         end,
     },
     {

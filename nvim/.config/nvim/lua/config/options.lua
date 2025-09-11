@@ -86,18 +86,18 @@ if uname == "Linux" then
     local termfeatures = vim.g.termfeatures or {}
     termfeatures.osc52 = false
     g.termfeatures = termfeatures
-    o.clipboard = ""
-    g.clipboard = {
-        name = 'OSC 52',
-        copy = {
-            ["+"] = require('vim.ui.clipboard.osc52').copy('+'),
-            ["*"] = require('vim.ui.clipboard.osc52').copy('*'),
-        },
-        paste = {
-            ["+"] = require('vim.ui.clipboard.osc52').paste('+'),
-            ["*"] = require('vim.ui.clipboard.osc52').paste('*'),
-        },
-    }
+    o.clipboard = "unnamedplus"
+    -- g.clipboard = {
+    --     name = 'OSC 52',
+    --     copy = {
+    --         ["+"] = require('vim.ui.clipboard.osc52').copy('+'),
+    --         ["*"] = require('vim.ui.clipboard.osc52').copy('*'),
+    --     },
+    --     paste = {
+    --         ["+"] = require('vim.ui.clipboard.osc52').paste('+'),
+    --         ["*"] = require('vim.ui.clipboard.osc52').paste('*'),
+    --     },
+    -- }
 elseif uname == "Windows_NT" then
     o.shell = "pwsh.exe"
     o.shellquote = ""
