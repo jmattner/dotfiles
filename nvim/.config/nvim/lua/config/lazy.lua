@@ -16,7 +16,12 @@ local opts = {
         { import = "plugins" }
     },
     -- install = { colorscheme = { "tokyonight", "habamax" } },
-    checker = { enabled = true }
+    checker = { enabled = true },
+    dev = {
+        path = "~/Development/nvim-plugins",
+        patterns = {},
+        fallback = false,
+    },
 }
 
 require("lazy").setup(opts)

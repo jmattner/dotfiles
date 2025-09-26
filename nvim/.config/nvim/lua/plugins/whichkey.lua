@@ -1,11 +1,10 @@
 return {
-    { 'echasnovski/mini.nvim',       version = false },
-    { 'nvim-tree/nvim-web-devicons', version = false },
+    { "nvim-mini/mini.nvim", version = false },
+    { "nvim-tree/nvim-web-devicons", version = false },
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
-        opts = {
-        },
+        opts = {},
         keys = function()
             local wk = require("which-key")
             wk.add({
@@ -25,9 +24,9 @@ return {
                     function()
                         require("which-key").show({ global = false })
                     end,
-                    desc = "Buffer Local Keymaps"
+                    desc = "Buffer Local Keymaps",
                 },
             }
-        end
-    }
+        end,
+    },
 }

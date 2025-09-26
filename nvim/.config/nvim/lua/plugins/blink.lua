@@ -9,11 +9,11 @@ return {
     ---@type blink.cmp.Config
     opts = {
         keymap = {
-            ['<Tab>'] = {},
-            ['<S-Tab>'] = {},
+            ["<Tab>"] = {},
+            ["<S-Tab>"] = {},
         },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
         sources = {
-            fuzzy = { implementation = "prefer_rust_with_warning" },
             default = { "lsp", "easy-dotnet", "path" },
             per_filetype = {
                 codecompanion = { "codecompanion" },

@@ -1,3 +1,4 @@
+---@module "roslyn.config"
 return {
     {
         "mason-org/mason.nvim",
@@ -33,12 +34,13 @@ return {
                 -- "roslyn", not available currently via mason
                 "sqlls",
                 "ts_ls",
-            }
+            },
         },
     },
     {
         "seblyng/roslyn.nvim",
         ft = "cs",
+        ---@type RoslynNvimConfig
         opts = {},
     },
 }

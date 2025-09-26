@@ -57,7 +57,7 @@ return {
                     },
                 },
             }
-            require("conform").setup(opts);
+            require("conform").setup(opts)
         end,
     },
     {
