@@ -29,7 +29,7 @@ return {
         config = function(_, opts)
             local sessions = require("mini.sessions")
 
-            vim.keymap.set("n", "<leader>za:", function()
+            vim.keymap.set("n", "<leader>za", function()
                 sessions.write("Session.vim", {})
             end, { desc = "Create Session" })
 

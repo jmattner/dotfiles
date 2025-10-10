@@ -21,33 +21,34 @@ return {
                 bin_path = "netcoredbg",
             },
         },
-        keys = function()
-            local dotnet = require("easy-dotnet")
-            local diagnostics = require("easy-dotnet.actions.diagnostics")
-            return {
-                {
-                    "<leader>rb",
-                    function()
-                        dotnet.build()
-                    end,
-                    desc = "build",
-                },
-                {
-                    "<leader>rc",
-                    function()
-                        dotnet.clean()
-                    end,
-                    desc = "clean",
-                },
-                {
-                    "<leader>rd",
-                    function()
-                        diagnostics.get_workspace_diagnostics()
-                    end,
-                    desc = "diagnostics",
-                },
-            }
-        end,
+        -- keys specified in after/ftplugin/cs.lua
+        -- keys = function()
+        --     local dotnet = require("easy-dotnet")
+        --     local diagnostics = require("easy-dotnet.actions.diagnostics")
+        --     return {
+        --         {
+        --             "<leader>rb",
+        --             function()
+        --                 dotnet.build()
+        --             end,
+        --             desc = "build",
+        --         },
+        --         {
+        --             "<leader>rc",
+        --             function()
+        --                 dotnet.clean()
+        --             end,
+        --             desc = "clean",
+        --         },
+        --         {
+        --             "<leader>rd",
+        --             function()
+        --                 diagnostics.get_workspace_diagnostics()
+        --             end,
+        --             desc = "diagnostics",
+        --         },
+        --     }
+        -- end,
     },
     -- {
     --     "EthanJWright/vs-tasks.nvim",

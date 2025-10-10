@@ -11,9 +11,9 @@ return {
         keys = {
 
             { "<leader>mh", "<cmd>Rest open<cr>", desc = "Open http results" },
-            { "<leader>rh", "<cmd>Rest run<cr>",  desc = "Run request under the cursor" },
+            -- other binds specified in ftplugin/http.lua
         },
-        setup = function()
-        end,
+        ---@type rest.Opts
+        opts = {},
     },
 }

@@ -25,50 +25,60 @@ return {
                 require("dap").adapters["coreclr"] = adapter
             end
 
-            local dotnet = require("easy-dotnet")
-            local debug_dll = nil
-            local function ensure_dll()
-                if debug_dll ~= nil then
-                    return debug_dll
-                end
-                local dll = dotnet.get_debug_dll()
-                debug_dll = dll
-                return dll
-            end
+            -- local dotnet = require("easy-dotnet")
+            -- local debug_dll = nil
+            -- local function ensure_dll()
+            --     if debug_dll ~= nil then
+            --         return debug_dll
+            --     end
+            --     local dll = dotnet.get_debug_dll()
+            --     debug_dll = dll
+            --     return dll
+            -- end
 
-            for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
-                dap.configurations[lang] = {
-                    {
-                        log_level = "DEBUG",
-                        type = "coreclr",
-                        justMyCode = false,
-                        stopAtEntry = false,
-                        name = "Default",
-                        request = "launch",
-                        console = "integratedTerminal",
-                        env = function()
-                            local dll = ensure_dll()
-                            local vars = dotnet.get_environment_variables(dll.project_name, dll.relative_project_path)
-                            return vars or nil
-                        end,
-                        program = function()
-                            require("overseer").enable_dap()
-                            local dll = ensure_dll()
-                            return dll.relative_dll_path
-                        end,
-                        cwd = function()
-                            local dll = ensure_dll()
-                            print("cwd: " .. dll.relative_project_path)
-                            return dll.relative_project_path
-                        end,
-                        preLaunchTask = "Build .NET App With Spinner",
-                    },
-                }
+            -- dap.configurations.cs = {
+            --     {
+            --         name = "Attach to process",
+            --         type = "coreclr",
+            --         request = "attach",
+            --         processId = require('dap.utils').pick_process,
+            --         args = {},
+            --     },
+            -- }
 
-                dap.listeners.before["event_terminated"]["easy-dotnet"] = function()
-                    debug_dll = nil
-                end
-            end
+            -- for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
+            --     dap.configurations[lang] = {
+            --         {
+            --             log_level = "DEBUG",
+            --             type = "coreclr",
+            --             justMyCode = false,
+            --             stopAtEntry = false,
+            --             name = "Default",
+            --             request = "launch",
+            --             console = "integratedTerminal",
+            --             env = function()
+            --                 local dll = ensure_dll()
+            --                 local vars = dotnet.get_environment_variables(dll.project_name, dll.relative_project_path)
+            --                 return vars or nil
+            --             end,
+            --             program = function()
+            --                 require("overseer").enable_dap()
+            --                 local dll = ensure_dll()
+            --                 return dll.relative_dll_path
+            --             end,
+            --             cwd = function()
+            --                 local dll = ensure_dll()
+            --                 print("cwd: " .. dll.relative_project_path)
+            --                 return dll.relative_project_path
+            --             end,
+            --             preLaunchTask = "Build .NET App With Spinner",
+            --         },
+            --     }
+            --
+            --     dap.listeners.before["event_terminated"]["easy-dotnet"] = function()
+            --         debug_dll = nil
+            --     end
+            -- end
 
             -- -- Standard GDScript adapter for non-C# projects
             -- dap.adapters.godot = {
@@ -88,48 +98,39 @@ return {
             -- }
 
             -- TODO - automagically select a configuration based on presence of godot project file?
-            table.insert(dap.configurations.cs, {
-                name = 'Debug with Godot',
-                type = 'coreclr',
-                request = 'attach',
-                processId = function()
-                    return coroutine.create(function(dap_run_co)
-                        local overseer = require("overseer")
-                        local params = {
-                            -- TODO from somewhere else
-                            godot_path = "godot-mono",
-                            godot_console_path = "godot-mono",
-                            on_started = function(pid)
-                                if pid == nil then
-                                    coroutine.resume(dap_run_co, dap.ABORT)
-                                end
-                                coroutine.resume(dap_run_co, pid)
-                            end
-                        }
-                        overseer.run_template({
-                            name = "Launch Godot",
-                            params = params,
-                        })
-                    end)
-                end,
-                -- TODO - find godot project files, picker if multiple found
-                -- cwd = function()
-                -- end,
-            })
+            -- table.insert(dap.configurations.cs, {
+            --     name = 'Debug with Godot',
+            --     type = 'coreclr',
+            --     request = 'attach',
+            --     processId = function()
+            --         return coroutine.create(function(dap_run_co)
+            --             local overseer = require("overseer")
+            --             local params = {
+            --                 -- TODO from somewhere else
+            --                 godot_path = "godot-mono",
+            --                 godot_console_path = "godot-mono",
+            --                 on_started = function(pid)
+            --                     if pid == nil then
+            --                         coroutine.resume(dap_run_co, dap.ABORT)
+            --                     end
+            --                     coroutine.resume(dap_run_co, pid)
+            --                 end
+            --             }
+            --             overseer.run_template({
+            --                 name = "Launch Godot",
+            --                 params = params,
+            --             })
+            --         end)
+            --     end,
+            --     -- TODO - find godot project files, picker if multiple found
+            --     -- cwd = function()
+            --     -- end,
+            -- })
 
             return opts
         end,
         keys = {
             { "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
-            -- HYDRA MODE
-            -- NOTE: the delay is set to prevent the which-key hints to appear
-            {
-                "<leader>d<space>",
-                function()
-                    require("which-key").show({ delay = 1000000000, keys = "<leader>d", loop = true })
-                end,
-                desc = "DAP Hydra Mode (which-key)",
-            },
             {
                 "<leader>dB",
                 function()
@@ -236,6 +237,8 @@ return {
             -- vim.defer_fn(function()
             --     vim.opt.shellslash = false
             -- end, 5000)
+
+            require("easy-dotnet.netcoredbg").register_dap_variables_viewer()
         end
     },
 }
