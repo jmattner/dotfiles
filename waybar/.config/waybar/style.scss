@@ -65,6 +65,14 @@ window#waybar {
         color: $surface1;
       }
     }
+
+    button.urgent {
+      background: $red;
+
+      label {
+        color: $surface1;
+      }
+    }
   }
 
 }

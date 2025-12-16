@@ -19,11 +19,13 @@ return {
         opts = {
             automatic_enable = {
                 exclude = {
+                    "copilot", -- handled by ai.lua
                     "lua_ls", -- handled by lua_ls.lua
                     "roslyn", -- handled by roslyn.nvim
                 },
             },
             ensure_installed = {
+                "copilot",
                 "docker_compose_language_service",
                 "dockerls",
                 "cssls",
@@ -37,10 +39,11 @@ return {
             },
         },
     },
-    {
-        "seblyng/roslyn.nvim",
-        ft = "cs",
-        ---@type RoslynNvimConfig
-        opts = {},
-    },
+    -- apparently handled now by easy-dotnet.nvim
+    -- {
+    --     "seblyng/roslyn.nvim",
+    --     ft = "cs",
+    --     ---@type RoslynNvimConfig
+    --     opts = {},
+    -- },
 }

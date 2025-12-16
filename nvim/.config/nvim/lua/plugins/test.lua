@@ -6,7 +6,7 @@ return {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
-            "Issafalcon/neotest-dotnet",
+            "nsidorenco/neotest-vstest",
         },
         keys = function()
             return {
@@ -15,21 +15,21 @@ return {
                     function()
                         require("neotest").summary.toggle()
                     end,
-                    desc = "summary"
+                    desc = "summary",
                 },
                 {
                     "<leader>tl",
                     function()
                         require("neotest").output_panel.toggle()
                     end,
-                    desc = "log"
+                    desc = "log",
                 },
                 {
                     "<leader>tx",
                     function()
                         require("neotest").output_panel.clear()
                     end,
-                    desc = "clear log"
+                    desc = "clear log",
                 },
                 {
                     "<leader>tr",
@@ -37,28 +37,28 @@ return {
                         require("neotest").run.run()
                         -- require("neotest").run.run(vim.fn.expand("%"))
                     end,
-                    desc = "run"
+                    desc = "run",
                 },
                 {
                     "<leader>td",
                     function()
                         require("neotest").run.run({ vim.fn.expand("%"), suite = false, strategy = "dap" })
                     end,
-                    desc = "debug"
+                    desc = "debug",
                 },
                 {
                     "<leader>ta",
                     function()
                         require("neotest").run.run({ suite = true })
                     end,
-                    desc = "run all"
+                    desc = "run all",
                 },
                 {
                     "<leader>ts",
                     function()
                         require("neotest").run.stop()
                     end,
-                    desc = "stop"
+                    desc = "stop",
                 },
             }
         end,
@@ -66,9 +66,7 @@ return {
             opts = opts or {}
             return {
                 adapters = {
-                    require("neotest-dotnet")({
-                        discovery_root = "solution",
-                    })
+                    require("neotest-vstest"),
                 },
                 -- running = {
                 --     concurrent = false,
@@ -79,8 +77,26 @@ return {
                 },
             }
         end,
+        config = function(_, opts)
+            vim.g.neotest_vstest = {
+                dap_settings = {
+                    type = "netcoredbg",
+                },
+                solution_selector = function(solutions)
+                    return nil -- return the solution you want to use or nil to let the adapter choose.
+                end,
+                settings_selector = function(project_dir)
+                    return nil
+                end,
+                build_opts = {
+                    additional_args = {},
+                },
+                timeout_ms = 30 * 5 * 1000,
+            }
+            require("neotest").setup(opts)
+        end,
     },
     {
-        "Issafalcon/neotest-dotnet",
+        "nsidorenco/neotest-vstest",
     },
 }

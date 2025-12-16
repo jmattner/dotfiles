@@ -53,7 +53,7 @@
         "tooltip-format": "<big>{:%Y %B}</big>"
     },
     "clock#date": {
-        "format": "{:%Y-%m-%d}",
+        "format": "{:%d-%m-%Y}",
         "tooltip-format": "{calendar}"
     },
     "cpu": {

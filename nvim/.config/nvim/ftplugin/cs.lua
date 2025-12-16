@@ -16,3 +16,9 @@ vim.keymap.set(
     "<cmd>lua require('easy-dotnet.actions.diagnostics').get_workspace_diagnostics()<cr>",
     { buffer = true, noremap = true, silent = true, desc = "Diagnostics" }
 )
+vim.keymap.set(
+    "n",
+    "<leader>mt",
+    "<cmd>lua require('easy-dotnet').testrunner()<cr>",
+    { buffer = true, noremap = true, silent = true, desc = "Clean" }
+)
