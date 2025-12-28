@@ -25,10 +25,10 @@ return {
                 -- broke when i updated to nvim 0.11.
                 -- something about ABI version compatibility
                 -- "latex",
+                "lua",
                 "markdown",
                 "markdown_inline",
                 "mermaid",
-                "lua",
                 "python",
                 "query",
                 "regex",

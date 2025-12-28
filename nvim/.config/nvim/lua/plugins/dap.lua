@@ -115,7 +115,6 @@ return {
                 desc = "Widgets",
             },
         },
-        -- lots taken from here https://godotforums.org/d/41943-how-can-i-use-netcoredbg-to-debug-c-on-godot/2
         config = function()
             local dap = require("dap")
 
