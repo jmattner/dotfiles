@@ -3,12 +3,13 @@ return {
         "GustavEikaas/easy-dotnet.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
+            "folke/snacks.nvim",
         },
         opts = {
             get_sdk_path = function()
                 return "/usr/share/dotnet"
             end,
+            picker = "snacks",
             auto_bootstrap_namespace = {
                 type = "file_scoped",
                 enabled = true,

@@ -6,7 +6,6 @@ return {
         -- dev = true,
         version = false,
         dependencies = {
-            { "nvim-telescope/telescope.nvim" },
             -- depend on noice so session load happens after lsp progress notifications are disabled
             { "folke/noice.nvim" },
         },

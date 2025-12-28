@@ -2,7 +2,6 @@ return {
     {
         "mfussenegger/nvim-dap",
         dependencies = {
-            "rcarriga/nvim-dap-ui",
             "theHamsta/nvim-dap-virtual-text",
             "nvim-lua/plenary.nvim",
         },
@@ -26,17 +25,6 @@ return {
             end
 
             dap.adapters["netcoredbg"] = dap.adapters["coreclr"]
-
-            -- local dotnet = require("easy-dotnet")
-            -- local debug_dll = nil
-            -- local function ensure_dll()
-            --     if debug_dll ~= nil then
-            --         return debug_dll
-            --     end
-            --     local dll = dotnet.get_debug_dll()
-            --     debug_dll = dll
-            --     return dll
-            -- end
 
             return opts
         end,
@@ -126,13 +114,6 @@ return {
                 end,
                 desc = "Widgets",
             },
-            {
-                "<leader>md",
-                function()
-                    require("dapui").toggle()
-                end,
-                desc = "DapUI",
-            },
         },
         -- lots taken from here https://godotforums.org/d/41943-how-can-i-use-netcoredbg-to-debug-c-on-godot/2
         config = function()
@@ -140,22 +121,6 @@ return {
 
             require("nvim-dap-virtual-text").setup({})
             vim.g.dap_virtual_text = true
-
-            local dapui = require("dapui")
-            dapui.setup()
-
-            dap.listeners.before.attach.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.launch.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated.dapui_config = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited.dapui_config = function()
-                dapui.close()
-            end
 
             vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
             vim.fn.sign_define(
@@ -171,16 +136,89 @@ return {
                 "DapBreakpointRejected",
                 { text = "●", texthl = "DapBreakpointRejected", linehl = "", numhl = "" }
             )
-            -- vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
-            -- vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "", numhl = "" })
-
-            -- hack to get debugger paths working
-            -- from here: https://github.com/mfussenegger/nvim-dap/issues/1337
-            -- vim.defer_fn(function()
-            --     vim.opt.shellslash = false
-            -- end, 5000)
 
             require("easy-dotnet.netcoredbg").register_dap_variables_viewer()
+        end,
+    },
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
+        },
+        opts = {
+            layouts = {
+                {
+                    elements = {
+                        {
+                            id = "scopes",
+                            size = 0.4,
+                        },
+                        {
+                            id = "breakpoints",
+                            size = 0.2,
+                        },
+                        {
+                            id = "stacks",
+                            size = 0.2,
+                        },
+                        {
+                            id = "console",
+                            size = 0.2,
+                        },
+                    },
+                    position = "left",
+                    size = 80,
+                },
+                {
+                    elements = {
+                        {
+                            id = "repl",
+                            size = 0.5,
+                        },
+                        {
+                            id = "watches",
+                            size = 0.5,
+                        },
+                    },
+                    position = "bottom",
+                    size = 25,
+                },
+            },
+        },
+        keys = {
+            {
+                "<leader>md",
+                function()
+                    require("dapui").toggle()
+                end,
+                desc = "DapUI",
+            },
+            {
+                "T",
+                function()
+                    require("dapui").eval()
+                end,
+                desc = "Eval",
+            },
+        },
+        config = function(_, opts)
+            local dap, dapui = require("dap"), require("dapui")
+
+            dapui.setup(opts)
+
+            dap.listeners.before.attach.dapui_config = function()
+                dapui.open()
+            end
+            dap.listeners.before.launch.dapui_config = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated.dapui_config = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited.dapui_config = function()
+                dapui.close()
+            end
         end,
     },
 }
