@@ -57,16 +57,6 @@ return {
                 desc = "Structure",
             },
             {
-                "gr",
-                "<cmd>Trouble custom_references open<cr>",
-                desc = "References",
-            },
-            {
-                "gi",
-                "<cmd>Trouble custom_implementations open<cr>",
-                desc = "Implementations",
-            },
-            {
                 "<leader>xL",
                 "<cmd>Trouble loclist toggle<cr>",
                 desc = "Location List",

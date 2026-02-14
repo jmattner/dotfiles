@@ -26,6 +26,19 @@ return {
 
             dap.adapters["netcoredbg"] = dap.adapters["coreclr"]
 
+            local debugger_conf = dap.configurations["cs"] or {}
+
+            vim.list_extend(debugger_conf, {
+                {
+                    type = "easy-dotnet",
+                    name = "easy-dotnet-godot",
+                    request = "attach",
+                    select_project = require('config/godot').prepare_debugger,
+                },
+            })
+
+            dap.configurations["cs"] = debugger_conf
+
             return opts
         end,
         keys = {

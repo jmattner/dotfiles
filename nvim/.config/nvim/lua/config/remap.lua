@@ -24,5 +24,9 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 vim.keymap.set("n", "<C-w>#", [[:%bd|e#<CR>]], { desc = "Close Other Buffers" })
 
+vim.keymap.set("n", "<leader>cg", function()
+    require("config.godot").connect_lsp()
+end, { desc = "Connect to Godot Editor/LSP" })
+
 -- unbind
 vim.keymap.set("n", "Q", "<nop>")
