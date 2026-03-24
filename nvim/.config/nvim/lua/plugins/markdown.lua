@@ -1,9 +1,9 @@
 return {
     {
-        'MeanderingProgrammer/render-markdown.nvim',
+        "MeanderingProgrammer/render-markdown.nvim",
         dependencies = {
-            { 'nvim-treesitter/nvim-treesitter' },
-            { 'nvim-tree/nvim-web-devicons' },
+            { "nvim-treesitter/nvim-treesitter" },
+            { "nvim-tree/nvim-web-devicons" },
         },
         ft = { "markdown", "codecompanion" },
         ---@module 'render-markdown'
@@ -11,8 +11,8 @@ return {
         opts = function()
             return {
                 code = {
-                    style = 'language',
-                    width = 'block',
+                    style = "language",
+                    width = "block",
                     left_pad = 4,
                     right_pad = 4,
                 },
@@ -37,30 +37,17 @@ return {
     --     },
     -- },
     -- {
-    --     "toppair/peek.nvim",
-    --     event = { "VeryLazy" },
-    --     build = "deno task --quiet build:fast",
+    --     "selimacerbas/markdown-preview.nvim",
+    --     dependencies = { "selimacerbas/live-server.nvim" },
     --     opts = {
-    --         app = { "firefox", "--new-window" },
+    --         mermaid_renderer = "rust",
     --     },
     --     keys = {
     --         {
-    --             "<leader>mp",
-    --             function()
-    --                 local peek = require("peek")
-    --                 if peek.is_open() then
-    --                     peek.close()
-    --                 else
-    --                     peek.open()
-    --                 end
-    --             end,
-    --             desc = "Preview",
+    --             "<leader>mm",
+    --             "<cmd>MarkdownPreview<cr>",
+    --             desc = "Markdown: Toggle preview",
     --         },
     --     },
-    --     config = function(_, opts)
-    --         require("peek").setup(opts)
-    --         vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-    --         vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-    --     end,
     -- },
 }

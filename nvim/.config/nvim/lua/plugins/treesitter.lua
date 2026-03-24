@@ -16,6 +16,7 @@ return {
                 "godot_resource",
                 "gitcommit",
                 "gitignore",
+                "helm",
                 "html",
                 "http",
                 "javascript",

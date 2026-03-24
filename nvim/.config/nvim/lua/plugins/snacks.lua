@@ -31,13 +31,6 @@ return {
                 desc = "Command History",
             },
             {
-                "<leader>pn",
-                function()
-                    Snacks.picker.notifications()
-                end,
-                desc = "Notification History",
-            },
-            {
                 "<leader>pb",
                 function()
                     Snacks.picker.buffers()
@@ -50,6 +43,34 @@ return {
                     Snacks.picker.files()
                 end,
                 desc = "Files",
+            },
+            {
+                "<leader>ph",
+                function()
+                    Snacks.picker.help()
+                end,
+                desc = "Help Pages",
+            },
+            {
+                "<leader>pH",
+                function()
+                    Snacks.picker.highlights()
+                end,
+                desc = "Highlights",
+            },
+            {
+                "<leader>pm",
+                function()
+                    Snacks.picker.marks()
+                end,
+                desc = "Marks",
+            },
+            {
+                "<leader>pn",
+                function()
+                    Snacks.picker.notifications()
+                end,
+                desc = "Notification History",
             },
             {
                 "<leader>pp",
@@ -74,26 +95,25 @@ return {
                 mode = { "n", "x" },
             },
             {
-                "<leader>ph",
-                function()
-                    Snacks.picker.help()
-                end,
-                desc = "Help Pages",
-            },
-            {
-                "<leader>pH",
-                function()
-                    Snacks.picker.highlights()
-                end,
-                desc = "Highlights",
-            },
-            -- git
-            {
                 "<leader>gb",
                 function()
                     Snacks.picker.git_branches()
                 end,
                 desc = "Git Branches",
+            },
+            {
+                "<leader>gd",
+                function()
+                    Snacks.picker.git_diff()
+                end,
+                desc = "Git Diff (Hunks)",
+            },
+            {
+                "<leader>gf",
+                function()
+                    Snacks.picker.git_log_file()
+                end,
+                desc = "Git Log File",
             },
             {
                 "<leader>gl",
@@ -109,27 +129,12 @@ return {
                 end,
                 desc = "Git Log Line",
             },
-            -- { "<leader>gs", function() Snacks.picker.git_status() end,      desc = "Git Status" },
             {
                 "<leader>gS",
                 function()
                     Snacks.picker.git_stash()
                 end,
                 desc = "Git Stash",
-            },
-            {
-                "<leader>gd",
-                function()
-                    Snacks.picker.git_diff()
-                end,
-                desc = "Git Diff (Hunks)",
-            },
-            {
-                "<leader>gf",
-                function()
-                    Snacks.picker.git_log_file()
-                end,
-                desc = "Git Log File",
             },
         },
     },

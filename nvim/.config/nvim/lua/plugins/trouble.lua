@@ -46,15 +46,20 @@ return {
                 "<cmd>Trouble diagnostics toggle<cr>",
                 desc = "Diagnostics",
             },
-            -- {
-            --     "<leader>xX",
-            --     "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-            --     desc = "Buffer Diagnostics (Trouble)",
-            -- },
+            {
+                "<leader>xX",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Diagnostics - buffer",
+            },
             {
                 "<leader>xs",
                 "<cmd>Trouble custom_symbols toggle<cr>",
                 desc = "Structure",
+            },
+            {
+                "<leader>xl",
+                "<cmd>Trouble lsp toggle focus=false<cr>",
+                desc = "LSP stuffs",
             },
             {
                 "<leader>xL",

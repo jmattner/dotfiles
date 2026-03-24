@@ -30,6 +30,7 @@ return {
                 "dockerls",
                 "cssls",
                 "eslint",
+                "helm_ls",
                 "html",
                 "lua_ls",
                 "marksman",
