@@ -4,6 +4,7 @@ return {
         opts = function(_, opts)
             vim.g.netrw_liststyle = 3
             vim.g.netrw_banner = 0
+            vim.g.netrw_preview = 1
 
             local ns_id = vim.api.nvim_create_namespace("netrw_path_line")
 
