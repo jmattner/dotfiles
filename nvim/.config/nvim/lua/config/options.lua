@@ -58,6 +58,7 @@ o.expandtab = true
 o.smartindent = true
 
 -- 14 folding
+o.foldlevelstart = 99
 
 -- 15 diff mode
 

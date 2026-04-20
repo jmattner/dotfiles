@@ -2,7 +2,8 @@ local augroup = vim.api.nvim_create_augroup("jmattner/autocmds/lsp-attach", { cl
 local icons = require("config/icons")
 
 local function diagnostics()
-    vim.diagnostic.config({
+    ---@type vim.diagnostic.Opts
+    local opts = {
         float = {
             border = "single",
         },
@@ -36,7 +37,8 @@ local function diagnostics()
             },
             current_line = false,
         },
-    })
+    }
+    vim.diagnostic.config(opts)
 end
 
 local function keymaps(bufnr, client)
@@ -77,7 +79,7 @@ local function keymaps(bufnr, client)
         vim.lsp.buf.code_action()
     end, "workspace symbols")
 
-    if client.supports_method(methods.textDocument_typeDefinition) then
+    if client:supports_method(methods.textDocument_typeDefinition) then
         k("grt", function()
             snacks.picker.lsp_type_definitions()
         end, "type definition")
@@ -87,7 +89,7 @@ end
 local function highlight_references(bufnr, client)
     local methods = vim.lsp.protocol.Methods
 
-    if not client.supports_method(methods.textDocument_documentHighlight) then
+    if not client:supports_method(methods.textDocument_documentHighlight) then
         return
     end
 

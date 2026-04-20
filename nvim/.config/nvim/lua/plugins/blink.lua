@@ -14,9 +14,10 @@ return {
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },
         sources = {
-            default = { "lsp", "easy-dotnet", "path" },
+            default = { "lsp", "easy-dotnet", "path", "snippets" },
             per_filetype = {
                 codecompanion = { "codecompanion" },
+                sql = { "dadbod", "snippets" },
             },
             providers = {
                 ["easy-dotnet"] = {
@@ -25,6 +26,11 @@ return {
                     module = "easy-dotnet.completion.blink",
                     score_offset = 10000,
                     async = true,
+                },
+                dadbod = {
+                    name = "dadbod",
+                    enabled = true,
+                    module = "vim_dadbod_completion.blink",
                 },
             },
         },
