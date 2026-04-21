@@ -21,6 +21,9 @@ return {
                 },
                 hidden = true,
             },
+            input = {
+                enabled = true,
+            },
         },
         keys = {
             {

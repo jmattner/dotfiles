@@ -1,10 +1,18 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
-        opts = function(_, opts)
-            opts.ensure_installed = opts.ensure_installed or {}
-            vim.list_extend(opts.ensure_installed, {
+        init = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    pcall(vim.treesitter.start)
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
+            })
+
+            local ensureInstalled = {
                 "angular",
                 "bash",
                 "c_sharp",
@@ -22,10 +30,7 @@ return {
                 "javascript",
                 "jsdoc",
                 "json",
-                -- TODO
-                -- broke when i updated to nvim 0.11.
-                -- something about ABI version compatibility
-                -- "latex",
+                "latex",
                 "lua",
                 "markdown",
                 "markdown_inline",
@@ -37,26 +42,15 @@ return {
                 "scss",
                 "typescript",
                 "vim",
-                "yaml"
-            })
-            opts.highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false
+                "yaml",
             }
-            opts.indent = { enable = true }
-            opts.matchup = { enable = true }
-            opts.incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-space>",
-                    node_incremental = "<C-space>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
-                }
-            }
+            local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+            local parsersToInstall = vim.iter(ensureInstalled)
+                :filter(function(parser)
+                    return not vim.tbl_contains(alreadyInstalled, parser)
+                end)
+                :totable()
+            require("nvim-treesitter").install(parsersToInstall)
         end,
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
-        end,
-    }
+    },
 }
