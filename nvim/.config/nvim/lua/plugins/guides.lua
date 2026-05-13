@@ -1,7 +1,21 @@
 return {
     {
         "tris203/precognition.nvim",
-        opts = {},
+        opts = {
+            -- debounceMs = 200,
+            highlightColor = { link = "Comment" },
+            hints = {
+                Zero = { prio = 0 },
+                Dollar = { prio = 0 },
+            },
+            targetedMotionHints = {
+                enabled = false,
+            },
+            disabled_fts = {
+                "netrw",
+                "fugitive",
+            },
+        },
     },
     {
         "lukas-reineke/indent-blankline.nvim",
