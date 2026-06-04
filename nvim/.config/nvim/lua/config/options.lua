@@ -19,7 +19,9 @@ o.list = true
 o.listchars = {
     space = '·',
     trail = '·',
-    tab = '⇥·',
+    -- tab = '⇥ ',
+    -- tab = '» ',
+    tab = '· ',
     extends = ">",
     precedes = "<",
 }

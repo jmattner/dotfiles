@@ -4,8 +4,12 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
             "folke/snacks.nvim",
+            "mfussenegger/nvim-dap",
         },
         opts = {
+            projx_lsp = {
+                enabled = true,
+            },
             get_sdk_path = function()
                 return "/usr/share/dotnet"
             end,
@@ -19,7 +23,7 @@ return {
                 },
             },
             debugger = {
-                bin_path = "netcoredbg",
+                -- bin_path = "netcoredbg",
             },
             ---@type TestRunnerOptions
             test_runner = {

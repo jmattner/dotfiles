@@ -6,8 +6,12 @@ return {
         build = ":TSUpdate",
         init = function()
             vim.api.nvim_create_autocmd("FileType", {
-                callback = function()
+                callback = function(args)
+                    local buf, filetype = args.buf, args.match
+                    local language = vim.treesitter.language.get_lang(args.match)
+                    if not language then return end
                     pcall(vim.treesitter.start)
+                    if language == "c_sharp" then return end
                     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                 end,
             })

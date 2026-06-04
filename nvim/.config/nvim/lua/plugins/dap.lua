@@ -33,7 +33,7 @@ return {
                     type = "easy-dotnet",
                     name = "easy-dotnet-godot",
                     request = "attach",
-                    select_project = require('config/godot').prepare_debugger,
+                    select_project = require("config/godot").prepare_debugger,
                 },
             })
 
@@ -120,19 +120,18 @@ return {
                 end,
                 desc = "Terminate",
             },
-            {
-                "<leader>dw",
-                function()
-                    require("dap.ui.widgets").hover()
-                end,
-                desc = "Widgets",
-            },
         },
         config = function()
             local dap = require("dap")
 
             require("nvim-dap-virtual-text").setup({})
             vim.g.dap_virtual_text = true
+
+            vim.api.nvim_set_hl(0, "DapBreakpoint", { link = "DiagnosticVirtualTextError" })
+            vim.api.nvim_set_hl(0, "DapBreakpointCondition", { link = "DiagnosticVirtualTextError" })
+            vim.api.nvim_set_hl(0, "DapLogPoint", { link = "DiagnosticVirtualTextInfo" })
+            vim.api.nvim_set_hl(0, "DapStopped", { link = "DiagnosticVirtualTextError" })
+            vim.api.nvim_set_hl(0, "DapBreakpointRejected", { link = "DiagnosticVirtualTextWarning" })
 
             vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
             vim.fn.sign_define(
@@ -153,84 +152,117 @@ return {
         end,
     },
     {
-        "rcarriga/nvim-dap-ui",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-            "nvim-neotest/nvim-nio",
-        },
-        opts = {
-            layouts = {
-                {
-                    elements = {
-                        {
-                            id = "scopes",
-                            size = 0.4,
-                        },
-                        {
-                            id = "breakpoints",
-                            size = 0.2,
-                        },
-                        {
-                            id = "stacks",
-                            size = 0.2,
-                        },
-                        {
-                            id = "console",
-                            size = 0.2,
-                        },
-                    },
-                    position = "left",
-                    size = 80,
-                },
-                {
-                    elements = {
-                        {
-                            id = "repl",
-                            size = 0.5,
-                        },
-                        {
-                            id = "watches",
-                            size = 0.5,
-                        },
-                    },
-                    position = "bottom",
-                    size = 25,
-                },
-            },
-        },
+        "igorlfs/nvim-dap-view",
+        lazy = false,
+        -- version = "1.*",
         keys = {
             {
                 "<leader>md",
                 function()
-                    require("dapui").toggle()
+                    require("dap-view").toggle()
                 end,
-                desc = "DapUI",
+                desc = "DapView",
             },
             {
                 "T",
                 function()
-                    require("dapui").eval()
+                    require("dap-view").hover()
                 end,
-                desc = "Eval",
+                desc = "Dap Eval",
             },
         },
-        config = function(_, opts)
-            local dap, dapui = require("dap"), require("dapui")
-
-            dapui.setup(opts)
-
-            dap.listeners.before.attach.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.launch.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated.dapui_config = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited.dapui_config = function()
-                dapui.close()
-            end
-        end,
+        ---@module 'dap-view'
+        ---@type dapview.Config
+        opts = {
+            auto_toggle = true,
+        },
     },
+    -- {
+    --     "rcarriga/nvim-dap-ui",
+    --     dependencies = {
+    --         "mfussenegger/nvim-dap",
+    --         "nvim-neotest/nvim-nio",
+    --     },
+    --     opts = {
+    --         layouts = {
+    --             {
+    --                 elements = {
+    --                     {
+    --                         id = "scopes",
+    --                         size = 0.4,
+    --                     },
+    --                     {
+    --                         id = "breakpoints",
+    --                         size = 0.2,
+    --                     },
+    --                     {
+    --                         id = "stacks",
+    --                         size = 0.2,
+    --                     },
+    --                     {
+    --                         id = "console",
+    --                         size = 0.2,
+    --                     },
+    --                 },
+    --                 position = "left",
+    --                 size = 80,
+    --             },
+    --             {
+    --                 elements = {
+    --                     {
+    --                         id = "repl",
+    --                         size = 0.5,
+    --                     },
+    --                     {
+    --                         id = "watches",
+    --                         size = 0.5,
+    --                     },
+    --                 },
+    --                 position = "bottom",
+    --                 size = 25,
+    --             },
+    --         },
+    --     },
+    --     keys = {
+    --         {
+    --             "<leader>md",
+    --             function()
+    --                 require("dapui").toggle()
+    --             end,
+    --             desc = "DapUI",
+    --         },
+    --         {
+    --             "T",
+    --             function()
+    --                 require("dapui").eval()
+    --             end,
+    --             desc = "Eval",
+    --         },
+    --         {
+    --             "<leader>dw",
+    --             function()
+    --                 require("dap.ui.widgets").hover()
+    --             end,
+    --             desc = "Widgets",
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         local dap, dapui = require("dap"), require("dapui")
+    --
+    --         dapui.setup(opts)
+    --
+    --         dap.listeners.before.attach.dapui_config = function()
+    --             dapui.open()
+    --         end
+    --         dap.listeners.before.launch.dapui_config = function()
+    --             dapui.open()
+    --         end
+    --         dap.listeners.before.event_terminated.dapui_config = function()
+    --             dapui.close()
+    --         end
+    --         dap.listeners.before.event_exited.dapui_config = function()
+    --             dapui.close()
+    --         end
+    --     end,
+    -- },
 }
