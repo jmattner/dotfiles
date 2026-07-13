@@ -1,0 +1,6 @@
+hl.on("hyprland.start", function()
+    hl.exec_cmd("nm-applet")
+    hl.exec_cmd("cd ~/.config/waybar && sass style.scss style.css --no-source-map && waybar")
+    hl.exec_cmd("hypridle")
+    hl.exec_cmd("hyprpaper")
+end)
